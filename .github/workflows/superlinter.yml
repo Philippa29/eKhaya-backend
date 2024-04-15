@@ -1,0 +1,26 @@
+name: Super-Linter
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - development
+
+jobs:
+  super-linter:
+    name: Lint codebase
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Super-Linter
+      uses: github/super-linter@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        commit-linting: "false" # Set to "true" to enable commit linting
+        csharp: "true" # Set to "true" to enable C# linting
+        yaml: "true" # Set to "true" to enable YAML linting
+        csproj: "true" # Set to "true" to enable csproj file linting
