@@ -9,7 +9,7 @@
 1. User Authentication and Authorization:
 
 Users should be able to create accounts and log in securely.
-Different user roles (e.g., property managers, tenants, maintenance staff) should have appropriate access permissions.
+Different user roles (e.g., property managers, tenants) should have appropriate access permissions.
 
 2. Property Listing:
 
