@@ -1,4 +1,9 @@
 # eKhaya-backend
+
+
+![Screenshot 2024-04-15 201312](https://github.com/Philippa29/eKhaya-backend/assets/68788485/ee9b41d6-df5b-4dbe-b30a-68fe5623907a)
+
+
 # Functional Requirements:
 
 1. User Authentication and Authorization:
