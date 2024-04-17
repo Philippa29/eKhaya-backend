@@ -10,18 +10,22 @@ Different user roles (e.g., property managers, tenants, maintenance staff) shoul
 
 Property managers should be able to list available properties for rent or sale.
 Properties should be categorized and searchable based on criteria such as location, size, amenities, etc.
+
 3. Leasing Management:
 
 Property managers should be able to manage lease agreements, including creating, editing, and terminating leases.
 Tenants should be able to submit lease applications online.
+
 4. Maintenance Requests:
 
 Tenants should be able to submit maintenance requests for issues in their rental units.
 Property managers should be able to assign, track, and prioritize maintenance tasks.
+
 5. Tenant Management:
 
 Property managers should be able to manage tenant information, including contact details, lease terms, and rental payments.
 Tenants should be able to view lease agreements, payment history, and submit inquiries or complaints.
+
 6. Financial Management:
 
 The system should support online rent payments and provide automated rent reminders.
