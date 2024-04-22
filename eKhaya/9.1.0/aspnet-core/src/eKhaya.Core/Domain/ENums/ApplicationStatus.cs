@@ -8,8 +8,9 @@ namespace eKhaya.Domain.ENums
 {
     public enum ApplicationStatus : int
     {
-        Available = 1,
-        Unavailable = 2,
-        Requested = 3,
+        Pending = 1,
+        UnderReview = 2,
+        Approved = 3,
+        Rejected = 4,
     }
 }
