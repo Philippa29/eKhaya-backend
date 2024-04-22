@@ -15,7 +15,7 @@ namespace eKhaya.Domain.Properties
     {
         public virtual string Address { get; set; }
 
-        public virtual int Size { get; set; }
+        public virtual decimal Size { get; set; }
         
         public virtual ICollection<Image> Images { get; set; }
 

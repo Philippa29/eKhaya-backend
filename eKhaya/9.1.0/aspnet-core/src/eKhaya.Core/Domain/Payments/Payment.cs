@@ -17,7 +17,7 @@ namespace eKhaya.Domain.Payment
 
         public virtual Resident Tenant { get; set; }
 
-        public virtual double Amount { get; set; }
+        public virtual decimal Amount { get; set; }
 
 
     }

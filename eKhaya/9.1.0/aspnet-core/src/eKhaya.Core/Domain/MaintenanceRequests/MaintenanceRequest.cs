@@ -17,9 +17,9 @@ namespace eKhaya.Domain.MaintenanceRequests
         public virtual MaintenanceType Type { get; set; }
         public virtual MaintenanceRequestStatus  Status { get; set; }
 
-        public virtual DateOnly CreatedDate { get; set; }
+        public virtual DateTime CreatedDate { get; set; }
 
-        public virtual DateOnly DateCompleted { get; set; }
+        public virtual DateTime DateCompleted { get; set; }
 
         public virtual Resident Tenant { get; set; }
 
