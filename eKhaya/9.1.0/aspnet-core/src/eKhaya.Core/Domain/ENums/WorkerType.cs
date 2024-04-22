@@ -10,12 +10,12 @@ namespace eKhaya.Domain.ENums
     public enum WorkerType : int
     {
         [Description("Plumber")]
-        Available = 1,
+        Plumber = 1,
 
         [Description("Electrician")]
-        Unavailable = 2,
+        Electrician = 2,
 
         [Description("Builder")]
-        Requested = 3,
+        Builder = 3,
     }
 }

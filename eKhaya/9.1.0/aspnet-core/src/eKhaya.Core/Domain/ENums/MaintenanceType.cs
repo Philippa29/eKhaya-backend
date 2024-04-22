@@ -10,12 +10,12 @@ namespace eKhaya.Domain.ENums
     public enum MaintenanceType : int
     {
         [Description("Plumbing")]
-        Available = 1,
+        Plumbing = 1,
 
         [Description("Electrical")]
-        Unavailable = 2,
+        Electrical = 2,
 
         [Description("Structural")]
-        Requested = 3,
+        Structural = 3,
     }
 }
