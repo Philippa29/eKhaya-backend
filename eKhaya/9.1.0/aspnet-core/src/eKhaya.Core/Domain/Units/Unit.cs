@@ -22,7 +22,7 @@ namespace eKhaya.Domain.Units
 
         public virtual string UnitNumber { get; set; }
 
-        public virtual ICollection<UnitAmenitity> Amenitities { get; set; }
+        public virtual ICollection<Amenity> Amenitities { get; set; }
 
         public virtual int Level { get; set; } 
 

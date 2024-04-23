@@ -16,14 +16,12 @@ namespace eKhaya.Domain.Properties
         public virtual string Address { get; set; }
 
         public virtual decimal Size { get; set; }
-        
-        public virtual ICollection<Image> Images { get; set; }
 
         public virtual PropertyManager PropertyManager { get; set; }
 
         public virtual ICollection<Agent> Agents { get; set; }
 
-        public virtual ICollection<PropertyAmenity> Amenitity { get; set; }
+        public virtual ICollection<Amenity> Amenitity { get; set; }
 
     }
 }

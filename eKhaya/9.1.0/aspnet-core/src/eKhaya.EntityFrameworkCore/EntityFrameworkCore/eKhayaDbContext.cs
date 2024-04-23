@@ -50,9 +50,8 @@ namespace eKhaya.EntityFrameworkCore
 
         public DbSet<Image> Images { get; set; }
         //amenities
-        public DbSet<PropertyAmenity> PropertyAmenities { get; set; }
-        public DbSet<UnitAmenitity> UnitAmenities { get; set; }
-
+        public DbSet<Amenity> Amenities { get; set; }
+        
         
 
 
