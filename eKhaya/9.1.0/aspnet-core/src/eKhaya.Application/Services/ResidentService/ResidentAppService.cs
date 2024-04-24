@@ -1,33 +1,38 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
+using Abp.Localization;
+using AutoMapper.Internal.Mappers;
 using eKhaya.Authorization.Roles;
 using eKhaya.Authorization.Users;
 using eKhaya.Domain.Users;
 using eKhaya.Services.Dtos;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eKhaya.Services.ApplicantService
+namespace eKhaya.Services.ResidentService
 {
-    public class ApplicantAppService : ApplicationService , IApplicantAppService
+    public class ResidentAppService : ApplicationService , IResidentAppService
     {
-        private readonly IRepository<Applicant, Guid> _applicantRepository; 
-        private readonly UserManager _userManager ;
+        private readonly IRepository<Resident, Guid> _residentrepository;
+        private readonly UserManager _userManager;
         private readonly RoleManager _roleManager; 
 
-        public ApplicantAppService(IRepository<Applicant, Guid> applicantRepository, UserManager userManager, RoleManager roleManager)
+        public ResidentAppService(IRepository<Resident, Guid> residentrepository, UserManager userManager, RoleManager roleManager)
         {
-            _applicantRepository = applicantRepository;
+            _residentrepository = residentrepository;
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        public async Task<ApplicantDto> CreateApplicantAsync(CreateApplicantDto input)
+
+        public async Task<ResidentDto> CreateResidentAsync(CreateResidentDto input)
         {
             var user = ObjectMapper.Map<User>(input);
             user.UserName = input.EmailAddress;
@@ -39,46 +44,48 @@ namespace eKhaya.Services.ApplicantService
 
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
-            input.RoleNames = new string[] { "Applicants" };
+            input.RoleNames = new string[] { "Residents" };
             CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
 
             await AssignRoleToUser(user, input.RoleNames);
-
-            var applicant = ObjectMapper.Map<Applicant>(input);
-            applicant.ApplicantID = input.ApplicantId; 
-            applicant.User = user;
-            await _applicantRepository.InsertAsync(applicant);
+            
+            var resident = ObjectMapper.Map<Resident>(input);
+            resident.User = user;
+            await _residentrepository.InsertAsync(resident);
             CurrentUnitOfWork.SaveChanges();
 
-            return ObjectMapper.Map<ApplicantDto>(applicant);
-
+            return ObjectMapper.Map<ResidentDto>(resident);
 
 
         }
 
-        public async Task DeleteApplicantAsync(Guid id)
+        public async Task DeleteResidentAsync(Guid id)
         {
-            await _applicantRepository.DeleteAsync(id);
+            await _residentrepository.DeleteAsync(id);
         }
 
-        public async Task<List<ApplicantDto>> GetAllApplicantsAsync()
+        public async Task<ResidentDto> GetResidentAsync(Guid id)
         {
-            var applicants = await _applicantRepository.GetAllListAsync();
-            return ObjectMapper.Map<List<ApplicantDto>>(applicants);
+            var resident = await _residentrepository.GetAll().Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
+            return ObjectMapper.Map<ResidentDto>(resident);
         }
 
-        public async Task<ApplicantDto> GetApplicantAsync(Guid id)
+        public async Task<List<ResidentDto>> GetAllResidentsAsync()
         {
-            var applicant = await _applicantRepository.GetAsync(id);
-            return ObjectMapper.Map<ApplicantDto>(applicant);
+            var resident = await _residentrepository.GetAllListAsync();
+            return ObjectMapper.Map<List<ResidentDto>>(resident);
         }
 
-        public async Task<ApplicantDto> UpdateApplicantAsync(UpdateApplicantDto input)
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<ResidentDto> UpdateResidentAsync(UpdateResidentDto input)
         {
-            var applicant = await _applicantRepository.GetAsync(input.Id);
-            var update = await _applicantRepository.UpdateAsync(ObjectMapper.Map(input, applicant));
-            return ObjectMapper.Map<ApplicantDto>(update);
+            var resident = await _residentrepository.GetAsync(input.Id);
+            var update = await _residentrepository.UpdateAsync(ObjectMapper.Map(input, resident));
+
+            return ObjectMapper.Map<ResidentDto>(update);
         }
+
 
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
@@ -90,5 +97,6 @@ namespace eKhaya.Services.ApplicantService
             var roleNamesToAdd = roles.Select(r => r.Name);
             await _userManager.AddToRolesAsync(user, roleNamesToAdd);
         }
+
     }
 }
