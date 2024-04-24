@@ -61,11 +61,11 @@ namespace eKhaya.Services.AmenitiesService
 
         public async Task<AmenitiesDto> UpdateAmenitiesAsync(AmenitiesDto input)
         {
-            var amenity = _amenitiesRepository.GetAsync(input.Id);
-
+            var amenity = await _amenitiesRepository.GetAsync(input.Id);
             ObjectMapper.Map(input, amenity);
+            var updatedAmenity = await _amenitiesRepository.UpdateAsync(amenity);
 
-            return ObjectMapper.Map<AmenitiesDto>(amenity);
+            return ObjectMapper.Map<AmenitiesDto>(updatedAmenity);
 
         }
     }
