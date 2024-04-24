@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using eKhaya.Domain.Address;
 using eKhaya.Domain.Amenities;
 using eKhaya.Domain.Images;
 using eKhaya.Domain.Units;
@@ -13,7 +14,7 @@ namespace eKhaya.Domain.Properties
 {
     public class Property : FullAuditedEntity<Guid>
     {
-        public virtual string Address { get; set; }
+        public virtual Addresses Address { get; set; }
 
         public virtual decimal Size { get; set; }
 
