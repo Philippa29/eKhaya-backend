@@ -8,5 +8,6 @@ namespace eKhaya.Services.Dtos
 {
     public class ApplicantDto : PersonDto
     {
+        public string ApplicantId { get; set; }
     }
 }
