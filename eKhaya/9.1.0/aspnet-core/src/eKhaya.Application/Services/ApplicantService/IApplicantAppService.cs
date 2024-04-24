@@ -13,7 +13,7 @@ namespace eKhaya.Services.ApplicantService
     {
         Task<ApplicantDto> CreateApplicantAsync(CreateApplicantDto input);
 
-        Task<ApplicantDto> UpdateApplicantAsync(ApplicantDto input);
+        Task<ApplicantDto> UpdateApplicantAsync(UpdateApplicantDto input);
 
         Task<ApplicantDto> GetApplicantAsync(Guid id);
 

@@ -14,14 +14,17 @@ namespace eKhaya.Services.ApplicantService
     {
         public ApplicantMappingProfile()
         {
-            CreateMap<ApplicantDto, PropertyManagerDto>();
+            CreateMap<Applicant, ApplicantDto>();
 
             //.ForMember(e => e.RoleNames, d => d.Ignore());
-            CreateMap<CreateApplicantDto, PropertyManager>();
+            CreateMap<CreateApplicantDto, Applicant>();
             CreateMap<CreateApplicantDto, User>()
                 .ForMember(e => e.Id, d => d.Ignore());
             CreateMap<ApplicantDto, User>()
                 .ForMember(e => e.Id, d => d.Ignore());
+            CreateMap<UpdateApplicantDto, User>()
+                .ForMember(e => e.Id, d => d.Ignore());
+            CreateMap<UpdateApplicantDto, Applicant>();
             //.ForMember(x => x.Roles, m  => m.MapFrom(x => x.RoleNames )); //ignores keys 
         }
     }
