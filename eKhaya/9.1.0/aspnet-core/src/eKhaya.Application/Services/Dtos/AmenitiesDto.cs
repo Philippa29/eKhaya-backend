@@ -12,6 +12,6 @@ namespace eKhaya.Services.Dtos
     {
         public string Name { get; set; }
 
-        public AmenitiesType Description { get; set; }
+        public AmenitiesType Type { get; set; }
     }
 }
