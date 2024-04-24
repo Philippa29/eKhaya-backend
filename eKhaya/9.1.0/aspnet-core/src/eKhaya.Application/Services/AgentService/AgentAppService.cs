@@ -5,7 +5,9 @@ using eKhaya.Authorization.Roles;
 using eKhaya.Authorization.Users;
 using eKhaya.Domain.Users;
 using eKhaya.Services.Dtos;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,7 +42,7 @@ namespace eKhaya.Services.AgentService
 
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
-            input.RoleNames = new string[] { "Agent" };
+            input.RoleNames = new string[] { "Agents" };
             CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
 
             await AssignRoleToUser(user, input.RoleNames);
@@ -72,12 +74,12 @@ namespace eKhaya.Services.AgentService
 
         }
 
-        public async Task<AgentDto> UpdateAgentAsync(AgentDto input)
+        
+        public async Task<AgentDto> UpdateAgentAsync(UpdateAgentDto input)
         {
-           var agents = await _agentRepository.GetAsync(input.Id);
-            ObjectMapper.Map(input, agents);
-            await _agentRepository.UpdateAsync(agents);
-            return ObjectMapper.Map<AgentDto>(agents);
+          var agent = await _agentRepository.GetAsync(input.Id);
+            var update = await _agentRepository.UpdateAsync(ObjectMapper.Map(input,agent));
+            return ObjectMapper.Map<AgentDto>(update);
         }
 
 

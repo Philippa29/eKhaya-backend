@@ -22,6 +22,10 @@ namespace eKhaya.Services.AgentService
                 .ForMember(e => e.Id, d => d.Ignore());
             CreateMap<AgentDto, User>()
                 .ForMember(e => e.Id, d => d.Ignore());
+
+            CreateMap<UpdateAgentDto, User>()
+                .ForMember(e => e.Id, d => d.Ignore());
+            CreateMap<UpdateAgentDto, Agent>();
             //.ForMember(x => x.Roles, m  => m.MapFrom(x => x.RoleNames )); //ignores keys 
 
 

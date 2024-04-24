@@ -12,7 +12,7 @@ namespace eKhaya.Services.AgentService
     {
         Task<AgentDto> CreateAgentAsync(CreateAgentDto input);
 
-        Task<AgentDto> UpdateAgentAsync(AgentDto input);
+        Task<AgentDto> UpdateAgentAsync(UpdateAgentDto input);
 
         Task<AgentDto> GetAgentAsync(Guid id);
 
