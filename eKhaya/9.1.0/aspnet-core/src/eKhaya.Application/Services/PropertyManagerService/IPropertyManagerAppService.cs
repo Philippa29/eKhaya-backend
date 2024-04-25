@@ -12,7 +12,7 @@ namespace eKhaya.Services.ProjectManagerService
     {
         Task<PropertyManagerDto> CreatePropertyManagerAsync(CreatePropertyManagerDto input);
 
-        Task<PropertyManagerDto> UpdatePropertyManagerAsync(PropertyManagerDto input);
+        Task<PropertyManagerDto> UpdatePropertyManagerAsync(UpdatePropertyManagerDto input);
 
         Task<PropertyManagerDto> GetPropertyManagerAsync(Guid id);
 

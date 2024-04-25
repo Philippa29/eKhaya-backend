@@ -22,6 +22,9 @@ namespace eKhaya.Services.ProjectManagerService
                 .ForMember(e => e.Id, d => d.Ignore());
             CreateMap<PropertyManagerDto, User>()
                 .ForMember(e => e.Id, d => d.Ignore());
+            CreateMap<UpdatePropertyManagerDto, User>()
+                .ForMember(e => e.Id, d => d.Ignore());
+            CreateMap<UpdatePropertyManagerDto, PropertyManager>();
             //.ForMember(x => x.Roles, m  => m.MapFrom(x => x.RoleNames )); //ignores keys 
 
         }

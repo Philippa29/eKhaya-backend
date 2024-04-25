@@ -63,8 +63,8 @@ namespace eKhaya.Services.ProjectManagerService
 
         public async Task<List<PropertyManagerDto>> GetAllPropertyManagersAsync()
         {
-              var managers = _propertyManagerRepository.GetAllListAsync();
-            return ObjectMapper.Map<List<PropertyManagerDto>>(managers);
+            var agents = await _propertyManagerRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<PropertyManagerDto>>(agents);
         }
 
         public async Task<PropertyManagerDto> GetPropertyManagerAsync(Guid id)
@@ -73,11 +73,11 @@ namespace eKhaya.Services.ProjectManagerService
             return ObjectMapper.Map<PropertyManagerDto>(manager);
         }
 
-        public async Task<PropertyManagerDto> UpdatePropertyManagerAsync(PropertyManagerDto input)
+        public async Task<PropertyManagerDto> UpdatePropertyManagerAsync(UpdatePropertyManagerDto input)
         {
-           var manager = ObjectMapper.Map<PropertyManager>(input);
-            await _propertyManagerRepository.UpdateAsync(manager);
-            return ObjectMapper.Map<PropertyManagerDto>(manager);
+            var manager = await _propertyManagerRepository.GetAsync(input.Id);
+            var update = await _propertyManagerRepository.UpdateAsync(ObjectMapper.Map(input, manager));
+            return ObjectMapper.Map<PropertyManagerDto>(update);
         }
 
         protected virtual void CheckErrors(IdentityResult identityResult)
