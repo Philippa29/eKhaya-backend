@@ -39,7 +39,7 @@ namespace eKhaya.Services.ApplicantService
 
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
-            input.RoleNames = new string[] { "Applicant" };
+            input.RoleNames = new string[] { "Applicants" };
             CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
 
             await AssignRoleToUser(user, input.RoleNames);
@@ -55,24 +55,28 @@ namespace eKhaya.Services.ApplicantService
 
         }
 
-        public Task DeleteApplicantAsync(Guid id)
+        public async Task DeleteApplicantAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _applicantRepository.DeleteAsync(id);
         }
 
-        public Task<List<ApplicantDto>> GetAllApplicantsAsync()
+        public async Task<List<ApplicantDto>> GetAllApplicantsAsync()
         {
-            throw new NotImplementedException();
+            var applicants = await _applicantRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<ApplicantDto>>(applicants);
         }
 
-        public Task<ApplicantDto> GetApplicantAsync(Guid id)
+        public async Task<ApplicantDto> GetApplicantAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var applicant = await _applicantRepository.GetAsync(id);
+            return ObjectMapper.Map<ApplicantDto>(applicant);
         }
 
-        public Task<ApplicantDto> UpdateApplicantAsync(ApplicantDto input)
+        public async Task<ApplicantDto> UpdateApplicantAsync(UpdateApplicantDto input)
         {
-            throw new NotImplementedException();
+            var applicant = await _applicantRepository.GetAsync(input.Id);
+            var update = await _applicantRepository.UpdateAsync(ObjectMapper.Map(input, applicant));
+            return ObjectMapper.Map<ApplicantDto>(update);
         }
 
         protected virtual void CheckErrors(IdentityResult identityResult)
