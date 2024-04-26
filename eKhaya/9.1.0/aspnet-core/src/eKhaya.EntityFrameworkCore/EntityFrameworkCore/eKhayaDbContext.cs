@@ -17,7 +17,6 @@ using eKhaya.Domain.Applications;
 using eKhaya.Domain.Address;
 using eKhaya.Domain.PropertyAmenities;
 using eKhaya.Domain.AgentsProperty;
-using eKhaya.Domain.UnitsAgents;
 using eKhaya.Domain.UnitsAmenities;
 
 namespace eKhaya.EntityFrameworkCore
@@ -63,7 +62,7 @@ namespace eKhaya.EntityFrameworkCore
         //amenities
         public DbSet<Amenity> Amenities { get; set; }
 
-        public DbSet<UnitsAgents> UnitsAgents { get; set; }
+       
 
         public DbSet<UnitsAmenities> UnitsAmenities{ get; set; }
         
