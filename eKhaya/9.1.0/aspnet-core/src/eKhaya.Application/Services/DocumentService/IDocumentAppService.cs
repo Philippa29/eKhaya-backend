@@ -14,7 +14,7 @@ namespace eKhaya.Services.DocumentAppService
     {
         Task<Document> CreateDocAsync( DocumentDto input); 
 
-        Task<List<AllDocumentsDto>> GetAllDocumentsAsync();
+        Task<List<AllDocumentsDto>> GetAllDocumentsAsync(Guid id);
 
         Task<string> GetDocumentsAsync(Guid id);
 

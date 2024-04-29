@@ -18,7 +18,7 @@ namespace eKhaya.Services.Dtos
 
         public IFormFile File { get; set; }
 
-        public Guid OwnderID { get; set; }
+        public Guid OwnerID { get; set; }
 
         public DocumentType DocumentType { get; set; }
 
