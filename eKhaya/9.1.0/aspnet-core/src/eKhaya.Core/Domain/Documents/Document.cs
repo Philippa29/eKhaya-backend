@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using eKhaya.Domain.Applications;
 using eKhaya.Domain.ENums;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -13,6 +14,8 @@ namespace eKhaya.Domain.Documents
 {
     public class Document : Entity<Guid>
     {
+
+        public virtual Application OwnerID { get; set; }
 
         [NotMapped]
         public virtual IFormFile File { get; set; }
