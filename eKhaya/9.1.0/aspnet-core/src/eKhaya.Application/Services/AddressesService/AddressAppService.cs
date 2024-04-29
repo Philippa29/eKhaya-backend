@@ -2,9 +2,6 @@
 using Abp.Domain.Repositories;
 using eKhaya.Domain.Address;
 using eKhaya.Services.Dtos;
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace eKhaya.Services.AddressesService
 {
-
-    public class AddressAppService : ApplicationService, IAddressAppService
-
+    public class AddressAppService : ApplicationService , IAddressAppService
     {
         private readonly IRepository<Addresses, Guid> _addressRepository;
 
@@ -29,9 +24,7 @@ namespace eKhaya.Services.AddressesService
         {
             var address = ObjectMapper.Map<Addresses>(input);
             var newAddress = await _addressRepository.InsertAsync(address);
-
-
-
+            
             return ObjectMapper.Map<AddressesDto>(newAddress);
         }
 
@@ -53,7 +46,6 @@ namespace eKhaya.Services.AddressesService
             return ObjectMapper.Map<List<AddressesDto>>(addresses);
         }
 
-        [HttpPut("updateAddress/{id}")]
         public async Task<AddressesDto> UpdateAddressAsync(AddressesDto input)
         {
             var address = await _addressRepository.GetAsync(input.Id);

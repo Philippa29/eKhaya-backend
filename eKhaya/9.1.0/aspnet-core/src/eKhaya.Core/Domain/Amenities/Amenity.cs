@@ -12,7 +12,7 @@ namespace eKhaya.Domain.Amenities
     {
         public virtual string Name { get; set; }
 
-        public virtual AmenitiesType Type { get; set; }
+        public virtual AmenitiesType Description { get; set; }
 
 
     }

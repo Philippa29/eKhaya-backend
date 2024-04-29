@@ -15,8 +15,14 @@ namespace eKhaya.Domain.Properties
     public class Property : FullAuditedEntity<Guid>
     {
         public virtual Addresses Address { get; set; }
-        public virtual decimal Size { get; set; }
-        public virtual PropertyManager PropertyManager { get; set; }
-    }
 
+        public virtual decimal Size { get; set; }
+
+        public virtual PropertyManager PropertyManager { get; set; }
+
+        public virtual ICollection<Agent> Agents { get; set; }
+
+        public virtual ICollection<Amenity> Amenitity { get; set; }
+
+    }
 }
