@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eKhaya.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using eKhaya.EntityFrameworkCore;
 namespace eKhaya.Migrations
 {
     [DbContext(typeof(eKhayaDbContext))]
-    partial class eKhayaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240425190453_updatedatabase7")]
+    partial class updatedatabase7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1842,10 +1845,12 @@ namespace eKhaya.Migrations
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerID")
+                    b.Property<Guid?>("OwnerIDId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerIDId");
 
                     b.ToTable("Images");
                 });
@@ -2763,6 +2768,15 @@ namespace eKhaya.Migrations
             modelBuilder.Entity("eKhaya.Domain.Documents.Document", b =>
                 {
                     b.HasOne("eKhaya.Domain.Applications.Application", "OwnerID")
+                        .WithMany()
+                        .HasForeignKey("OwnerIDId");
+
+                    b.Navigation("OwnerID");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Images.Image", b =>
+                {
+                    b.HasOne("eKhaya.Domain.Properties.Property", "OwnerID")
                         .WithMany()
                         .HasForeignKey("OwnerIDId");
 

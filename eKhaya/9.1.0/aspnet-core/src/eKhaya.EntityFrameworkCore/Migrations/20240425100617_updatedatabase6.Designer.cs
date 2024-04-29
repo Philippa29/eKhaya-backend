@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eKhaya.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using eKhaya.EntityFrameworkCore;
 namespace eKhaya.Migrations
 {
     [DbContext(typeof(eKhayaDbContext))]
-    partial class eKhayaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240425100617_updatedatabase6")]
+    partial class updatedatabase6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1716,7 +1719,12 @@ namespace eKhaya.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UnitId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Amenities");
                 });
@@ -1842,10 +1850,17 @@ namespace eKhaya.Migrations
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerID")
+                    b.Property<Guid?>("OwnerIDId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerIDId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Images");
                 });
@@ -2151,48 +2166,6 @@ namespace eKhaya.Migrations
                     b.HasIndex("PropertyIDId");
 
                     b.ToTable("Units");
-                });
-
-            modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AmenityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmenityId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("UnitsAmenities");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>
@@ -2745,6 +2718,13 @@ namespace eKhaya.Migrations
                     b.Navigation("Property");
                 });
 
+            modelBuilder.Entity("eKhaya.Domain.Amenities.Amenity", b =>
+                {
+                    b.HasOne("eKhaya.Domain.Units.Unit", null)
+                        .WithMany("Amenitities")
+                        .HasForeignKey("UnitId");
+                });
+
             modelBuilder.Entity("eKhaya.Domain.Applications.Application", b =>
                 {
                     b.HasOne("eKhaya.Domain.Users.Applicant", "Applicant")
@@ -2765,6 +2745,19 @@ namespace eKhaya.Migrations
                     b.HasOne("eKhaya.Domain.Applications.Application", "OwnerID")
                         .WithMany()
                         .HasForeignKey("OwnerIDId");
+
+                    b.Navigation("OwnerID");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Images.Image", b =>
+                {
+                    b.HasOne("eKhaya.Domain.Properties.Property", "OwnerID")
+                        .WithMany()
+                        .HasForeignKey("OwnerIDId");
+
+                    b.HasOne("eKhaya.Domain.Units.Unit", null)
+                        .WithMany("Images")
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("OwnerID");
                 });
@@ -2857,21 +2850,6 @@ namespace eKhaya.Migrations
                     b.Navigation("AgentID");
 
                     b.Navigation("PropertyID");
-                });
-
-            modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
-                {
-                    b.HasOne("eKhaya.Domain.Amenities.Amenity", "Amenity")
-                        .WithMany()
-                        .HasForeignKey("AmenityId");
-
-                    b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Amenity");
-
-                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>
@@ -3006,6 +2984,13 @@ namespace eKhaya.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
+                {
+                    b.Navigation("Amenitities");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

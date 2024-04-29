@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eKhaya.Services.Dtos
 {
-    public class CreatePropertyManagerDto
+    public class CreatePropertyManagerDto : PersonDto
     {
         public string Name { get; set; }
 

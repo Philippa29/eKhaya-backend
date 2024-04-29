@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eKhaya.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using eKhaya.EntityFrameworkCore;
 namespace eKhaya.Migrations
 {
     [DbContext(typeof(eKhayaDbContext))]
-    partial class eKhayaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424200827_updatedatabase4")]
+    partial class updatedatabase4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1641,48 +1644,6 @@ namespace eKhaya.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.AgentsProperty.AgentProperty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AgentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgentId");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("propertyAgents");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Amenities.Amenity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1713,10 +1674,20 @@ namespace eKhaya.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UnitId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Amenities");
                 });
@@ -1842,10 +1813,17 @@ namespace eKhaya.Migrations
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerID")
+                    b.Property<Guid?>("OwnerIDId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerIDId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Images");
                 });
@@ -2054,48 +2032,6 @@ namespace eKhaya.Migrations
                     b.ToTable("Properties");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.PropertyAmenities.PropertyAmenity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AmenityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmenityId");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("propertyAmenities");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2153,48 +2089,6 @@ namespace eKhaya.Migrations
                     b.ToTable("Units");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AmenityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmenityId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("UnitsAmenities");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2234,6 +2128,9 @@ namespace eKhaya.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
@@ -2241,6 +2138,8 @@ namespace eKhaya.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
 
                     b.HasIndex("UserId");
 
@@ -2730,19 +2629,15 @@ namespace eKhaya.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.AgentsProperty.AgentProperty", b =>
+            modelBuilder.Entity("eKhaya.Domain.Amenities.Amenity", b =>
                 {
-                    b.HasOne("eKhaya.Domain.Users.Agent", "Agent")
-                        .WithMany()
-                        .HasForeignKey("AgentId");
-
-                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
-                        .WithMany()
+                    b.HasOne("eKhaya.Domain.Properties.Property", null)
+                        .WithMany("Amenitity")
                         .HasForeignKey("PropertyId");
 
-                    b.Navigation("Agent");
-
-                    b.Navigation("Property");
+                    b.HasOne("eKhaya.Domain.Units.Unit", null)
+                        .WithMany("Amenitities")
+                        .HasForeignKey("UnitId");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Applications.Application", b =>
@@ -2765,6 +2660,19 @@ namespace eKhaya.Migrations
                     b.HasOne("eKhaya.Domain.Applications.Application", "OwnerID")
                         .WithMany()
                         .HasForeignKey("OwnerIDId");
+
+                    b.Navigation("OwnerID");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Images.Image", b =>
+                {
+                    b.HasOne("eKhaya.Domain.Properties.Property", "OwnerID")
+                        .WithMany()
+                        .HasForeignKey("OwnerIDId");
+
+                    b.HasOne("eKhaya.Domain.Units.Unit", null)
+                        .WithMany("Images")
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("OwnerID");
                 });
@@ -2829,21 +2737,6 @@ namespace eKhaya.Migrations
                     b.Navigation("PropertyManager");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.PropertyAmenities.PropertyAmenity", b =>
-                {
-                    b.HasOne("eKhaya.Domain.Amenities.Amenity", "Amenity")
-                        .WithMany()
-                        .HasForeignKey("AmenityId");
-
-                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId");
-
-                    b.Navigation("Amenity");
-
-                    b.Navigation("Property");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
                 {
                     b.HasOne("eKhaya.Domain.Users.Agent", "AgentID")
@@ -2859,23 +2752,12 @@ namespace eKhaya.Migrations
                     b.Navigation("PropertyID");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
-                {
-                    b.HasOne("eKhaya.Domain.Amenities.Amenity", "Amenity")
-                        .WithMany()
-                        .HasForeignKey("AmenityId");
-
-                    b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Amenity");
-
-                    b.Navigation("Unit");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>
                 {
+                    b.HasOne("eKhaya.Domain.Properties.Property", null)
+                        .WithMany("Agents")
+                        .HasForeignKey("PropertyId");
+
                     b.HasOne("eKhaya.Authorization.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -3006,6 +2888,20 @@ namespace eKhaya.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Properties.Property", b =>
+                {
+                    b.Navigation("Agents");
+
+                    b.Navigation("Amenitity");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
+                {
+                    b.Navigation("Amenitities");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }
