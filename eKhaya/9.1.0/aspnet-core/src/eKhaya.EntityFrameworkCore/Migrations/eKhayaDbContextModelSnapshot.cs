@@ -1579,110 +1579,6 @@ namespace eKhaya.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.Address.Addresses", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AddressLine1")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AddressLine2")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AddressLine3")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("Latitude")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Longitude")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("POBox")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Suburb")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Town")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("eKhaya.Domain.AgentsProperty.AgentProperty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AgentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgentId");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("propertyAgents");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Amenities.Amenity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1701,6 +1597,9 @@ namespace eKhaya.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Description")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1713,10 +1612,17 @@ namespace eKhaya.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UnitId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Amenities");
                 });
@@ -1727,26 +1633,11 @@ namespace eKhaya.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ApplicantId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("ApplicationStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("CompanyAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyContactNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ComunityType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid?>("BankStatementId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1754,20 +1645,17 @@ namespace eKhaya.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Declaration")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Evicited")
-                        .HasColumnType("bit");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Insolvent")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("Id1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1778,27 +1666,19 @@ namespace eKhaya.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("MaritalStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MonthsWorked")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Occupation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TermsandConditions")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("PayslipId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicantId");
+                    b.HasIndex("BankStatementId");
+
+                    b.HasIndex("Id1");
+
+                    b.HasIndex("PayslipId");
 
                     b.HasIndex("UnitId");
 
@@ -1820,12 +1700,7 @@ namespace eKhaya.Migrations
                     b.Property<string>("FileType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OwnerIDId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerIDId");
 
                     b.ToTable("Documents");
                 });
@@ -1842,10 +1717,17 @@ namespace eKhaya.Migrations
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerID")
+                    b.Property<Guid?>("OwnerIDId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerIDId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Images");
                 });
@@ -2015,8 +1897,8 @@ namespace eKhaya.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddressId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -2047,53 +1929,9 @@ namespace eKhaya.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("PropertyManagerId");
 
                     b.ToTable("Properties");
-                });
-
-            modelBuilder.Entity("eKhaya.Domain.PropertyAmenities.PropertyAmenity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AmenityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmenityId");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("propertyAmenities");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
@@ -2153,48 +1991,6 @@ namespace eKhaya.Migrations
                     b.ToTable("Units");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AmenityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmenityId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("UnitsAmenities");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2234,6 +2030,9 @@ namespace eKhaya.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
@@ -2241,6 +2040,8 @@ namespace eKhaya.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
 
                     b.HasIndex("UserId");
 
@@ -2254,8 +2055,7 @@ namespace eKhaya.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ApplicantID")
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -2730,41 +2530,53 @@ namespace eKhaya.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.AgentsProperty.AgentProperty", b =>
+            modelBuilder.Entity("eKhaya.Domain.Amenities.Amenity", b =>
                 {
-                    b.HasOne("eKhaya.Domain.Users.Agent", "Agent")
-                        .WithMany()
-                        .HasForeignKey("AgentId");
-
-                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
-                        .WithMany()
+                    b.HasOne("eKhaya.Domain.Properties.Property", null)
+                        .WithMany("Amenitity")
                         .HasForeignKey("PropertyId");
 
-                    b.Navigation("Agent");
-
-                    b.Navigation("Property");
+                    b.HasOne("eKhaya.Domain.Units.Unit", null)
+                        .WithMany("Amenitities")
+                        .HasForeignKey("UnitId");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Applications.Application", b =>
                 {
-                    b.HasOne("eKhaya.Domain.Users.Applicant", "Applicant")
+                    b.HasOne("eKhaya.Domain.Documents.Document", "BankStatement")
                         .WithMany()
-                        .HasForeignKey("ApplicantId");
+                        .HasForeignKey("BankStatementId");
+
+                    b.HasOne("eKhaya.Domain.Documents.Document", "ID")
+                        .WithMany()
+                        .HasForeignKey("Id1");
+
+                    b.HasOne("eKhaya.Domain.Documents.Document", "Payslip")
+                        .WithMany()
+                        .HasForeignKey("PayslipId");
 
                     b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
 
-                    b.Navigation("Applicant");
+                    b.Navigation("BankStatement");
+
+                    b.Navigation("ID");
+
+                    b.Navigation("Payslip");
 
                     b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.Documents.Document", b =>
+            modelBuilder.Entity("eKhaya.Domain.Images.Image", b =>
                 {
-                    b.HasOne("eKhaya.Domain.Applications.Application", "OwnerID")
+                    b.HasOne("eKhaya.Domain.Properties.Property", "OwnerID")
                         .WithMany()
                         .HasForeignKey("OwnerIDId");
+
+                    b.HasOne("eKhaya.Domain.Units.Unit", null)
+                        .WithMany("Images")
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("OwnerID");
                 });
@@ -2816,32 +2628,11 @@ namespace eKhaya.Migrations
 
             modelBuilder.Entity("eKhaya.Domain.Properties.Property", b =>
                 {
-                    b.HasOne("eKhaya.Domain.Address.Addresses", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
                     b.HasOne("eKhaya.Domain.Users.PropertyManager", "PropertyManager")
                         .WithMany()
                         .HasForeignKey("PropertyManagerId");
 
-                    b.Navigation("Address");
-
                     b.Navigation("PropertyManager");
-                });
-
-            modelBuilder.Entity("eKhaya.Domain.PropertyAmenities.PropertyAmenity", b =>
-                {
-                    b.HasOne("eKhaya.Domain.Amenities.Amenity", "Amenity")
-                        .WithMany()
-                        .HasForeignKey("AmenityId");
-
-                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId");
-
-                    b.Navigation("Amenity");
-
-                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
@@ -2859,23 +2650,12 @@ namespace eKhaya.Migrations
                     b.Navigation("PropertyID");
                 });
 
-            modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
-                {
-                    b.HasOne("eKhaya.Domain.Amenities.Amenity", "Amenity")
-                        .WithMany()
-                        .HasForeignKey("AmenityId");
-
-                    b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Amenity");
-
-                    b.Navigation("Unit");
-                });
-
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>
                 {
+                    b.HasOne("eKhaya.Domain.Properties.Property", null)
+                        .WithMany("Agents")
+                        .HasForeignKey("PropertyId");
+
                     b.HasOne("eKhaya.Authorization.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -3006,6 +2786,20 @@ namespace eKhaya.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Properties.Property", b =>
+                {
+                    b.Navigation("Agents");
+
+                    b.Navigation("Amenitity");
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.Units.Unit", b =>
+                {
+                    b.Navigation("Amenitities");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

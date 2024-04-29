@@ -2,7 +2,6 @@
 using Abp.Domain.Repositories;
 using eKhaya.Domain.Amenities;
 using eKhaya.Services.Dtos;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,23 +20,12 @@ namespace eKhaya.Services.AmenitiesService
         }
         public async Task<AmenitiesDto> CreateAmenitiesAsync(AmenitiesDto input)
         {
-            // Check if an amenity with the same Name and Type already exists
-            var existingAmenity = await _amenitiesRepository.FirstOrDefaultAsync(x =>
-                x.Name == input.Name && x.Type == input.Type);
-
-            if (existingAmenity != null)
-            {
-                // If an amenity with similar details exists, throw an error
-                throw new Exception("An amenity with the same name and type already exists.");
-            }
-
-            // If no similar amenity exists, proceed with creating the new amenity
             var amenity = ObjectMapper.Map<Amenity>(input);
             await _amenitiesRepository.InsertAsync(amenity);
-            await CurrentUnitOfWork.SaveChangesAsync();
+            CurrentUnitOfWork.SaveChanges();
             return ObjectMapper.Map<AmenitiesDto>(amenity);
+            
         }
-
 
         public async Task DeleteAmenitiesAsync(Guid id)
         {
@@ -57,15 +45,13 @@ namespace eKhaya.Services.AmenitiesService
             return ObjectMapper.Map<AmenitiesDto>(amenity); 
         }
 
-        [HttpPut("updateAmenities/{id}")]
-
         public async Task<AmenitiesDto> UpdateAmenitiesAsync(AmenitiesDto input)
         {
-            var amenity = await _amenitiesRepository.GetAsync(input.Id);
-            ObjectMapper.Map(input, amenity);
-            var updatedAmenity = await _amenitiesRepository.UpdateAsync(amenity);
+            var amenity = _amenitiesRepository.GetAsync(input.Id);
 
-            return ObjectMapper.Map<AmenitiesDto>(updatedAmenity);
+            ObjectMapper.Map(input, amenity);
+
+            return ObjectMapper.Map<AmenitiesDto>(amenity);
 
         }
     }

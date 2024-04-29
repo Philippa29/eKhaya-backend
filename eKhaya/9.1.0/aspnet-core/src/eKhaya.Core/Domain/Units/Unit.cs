@@ -22,13 +22,13 @@ namespace eKhaya.Domain.Units
 
         public virtual string UnitNumber { get; set; }
 
-        
+        public virtual ICollection<Amenity> Amenitities { get; set; }
 
         public virtual int Level { get; set; } 
 
         public virtual bool Availability { get; set; }
 
-        
+        public virtual ICollection<Image> Images { get; set; }
 
         public virtual Property PropertyID { get; set; }
     }

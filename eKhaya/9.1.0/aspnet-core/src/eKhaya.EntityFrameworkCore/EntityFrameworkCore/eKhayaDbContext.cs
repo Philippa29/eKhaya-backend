@@ -14,10 +14,6 @@ using eKhaya.Domain.Amenities;
 using eKhaya.Domain.Images;
 using eKhaya.Domain.Documents;
 using eKhaya.Domain.Applications;
-using eKhaya.Domain.Address;
-using eKhaya.Domain.PropertyAmenities;
-using eKhaya.Domain.AgentsProperty;
-using eKhaya.Domain.UnitsAmenities;
 
 namespace eKhaya.EntityFrameworkCore
 {
@@ -40,8 +36,6 @@ namespace eKhaya.EntityFrameworkCore
 
         public DbSet<Unit> Units { get; set; }
 
-        public DbSet<Addresses> Addresses { get; set; }
-
         public DbSet<Property> Properties { get; set; }
         //person
         public DbSet<Applicant> Applicants { get; set; }
@@ -51,20 +45,12 @@ namespace eKhaya.EntityFrameworkCore
 
         public DbSet<Agent> Agents { get; set; }
 
-        public DbSet<PropertyAmenity> propertyAmenities { get; set; }
-
-        public DbSet<AgentProperty> propertyAgents { get; set; }
-
         //storefiles
         public DbSet<Document> Documents { get; set; }
 
         public DbSet<Image> Images { get; set; }
         //amenities
         public DbSet<Amenity> Amenities { get; set; }
-
-       
-
-        public DbSet<UnitsAmenities> UnitsAmenities{ get; set; }
         
         
 

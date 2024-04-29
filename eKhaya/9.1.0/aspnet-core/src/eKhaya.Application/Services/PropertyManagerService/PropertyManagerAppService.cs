@@ -16,13 +16,13 @@ using System.Threading.Tasks;
 
 namespace eKhaya.Services.ProjectManagerService
 {
-    public class PropertyManagerAppService : ApplicationService, IPropertyManagerAppService
+    public class PropertyManagerAppServicem : ApplicationService, IPropertyManagerAppService
     {
         private readonly IRepository<PropertyManager, Guid> _propertyManagerRepository; 
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager; 
 
-        public PropertyManagerAppService(IRepository<PropertyManager, Guid> propertyManagerRepository, UserManager userManager, RoleManager roleManager)
+        public PropertyManagerAppServicem(IRepository<PropertyManager, Guid> propertyManagerRepository, UserManager userManager, RoleManager roleManager)
         {
             _propertyManagerRepository = propertyManagerRepository;
             _userManager = userManager;
