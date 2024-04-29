@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace eKhaya.Services.Dtos
 {
    
-    public class DocumentDto : EntityDto<Guid>
+    public class DocumentDto 
     {
         [AutoMap(typeof(Document))]
 
@@ -22,6 +22,6 @@ namespace eKhaya.Services.Dtos
 
         public DocumentType DocumentType { get; set; }
 
-        public string FileType { get; set; }
+        
     }
 }

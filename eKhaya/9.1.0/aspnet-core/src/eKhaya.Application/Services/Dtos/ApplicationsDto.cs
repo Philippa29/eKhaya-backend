@@ -41,5 +41,7 @@ namespace eKhaya.Services.Dtos
         public string Declaration { get; set; }
         public string TermsandConditions { get; set; }
 
+        public ApplicationType ApplicationType { get; set; }
+
     }
 }

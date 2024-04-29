@@ -42,5 +42,7 @@ namespace eKhaya.Domain.Applications
         public virtual bool Evicited { get; set; }
         public virtual string Declaration { get; set; }
         public virtual string TermsandConditions { get; set; }
+
+        public virtual ApplicationType ApplicationType { get; set; }
     }
 }
