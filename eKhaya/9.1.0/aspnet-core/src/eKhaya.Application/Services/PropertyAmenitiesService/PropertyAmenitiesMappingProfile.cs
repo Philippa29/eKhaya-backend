@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eKhaya.Domain.Properties;
 using eKhaya.Domain.PropertyAmenities;
 using eKhaya.Domain.UnitsAmenities;
 using eKhaya.Services.Dtos;
@@ -20,6 +21,11 @@ namespace eKhaya.Services.PropertyAmenitiesService
             CreateMap<PropertyAmenitiesDto, PropertyAmenity>()
                 .ForMember(dest => dest.Property, opt => opt.Ignore())
                 .ForMember(dest => dest.Amenity, opt => opt.Ignore());
+
+            CreateMap<Property, ViewPropertyDto>()
+              .ForMember(dest => dest.PropertyId, opt => opt.MapFrom(src => src.Id))
+              .ForMember(dest => dest.PropertyName, opt => opt.MapFrom(src => src.PropertyName))
+              .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
         }
     }
 }

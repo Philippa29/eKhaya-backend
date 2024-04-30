@@ -41,6 +41,10 @@ namespace eKhaya.Services.Dtos
         public List<Guid> AgentIds { get; set; }
         public List<Guid> AmenityIds { get; set; }
 
+        public string PropertyName { get; set; }
+
+        public string Description { get; set; }
+
 
     }
 }

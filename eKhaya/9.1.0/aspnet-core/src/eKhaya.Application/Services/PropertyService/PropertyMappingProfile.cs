@@ -17,6 +17,10 @@ namespace eKhaya.Services.PropertyService
                 .ForMember(x => x.PropertyManagerId , y => y.MapFrom(src => src.Id));
 
             CreateMap<PropertyDto, Property>();
+
+            CreateMap<UpdatePropertyDto, Property>(); 
+
+
         }
     }
 }

@@ -18,5 +18,7 @@ namespace eKhaya.Services.PropertyAmenitiesService
         public Task<List<PropertyAmenitiesDto>> GetAllPropertyAmenitiesAsync();
 
         public Task DeletePropertyAmenitiesAsync(Guid id);
+
+        public Task<List<ViewPropertyDto>> GetAllAvailableProperties(); 
     }
 }

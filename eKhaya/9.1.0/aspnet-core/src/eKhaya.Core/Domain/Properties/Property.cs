@@ -17,6 +17,10 @@ namespace eKhaya.Domain.Properties
         public virtual Addresses Address { get; set; }
         public virtual decimal Size { get; set; }
         public virtual PropertyManager PropertyManager { get; set; }
+
+        public virtual string PropertyName { get; set; }
+
+        public virtual string Description { get; set; }
     }
 
 }
