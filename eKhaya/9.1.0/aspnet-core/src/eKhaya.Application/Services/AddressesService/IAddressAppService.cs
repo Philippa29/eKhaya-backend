@@ -16,7 +16,7 @@ namespace eKhaya.Services.AddressesService
 
         Task<AddressesDto> GetAddressAsync(Guid id);
 
-        Task<List<AddressesDto>> GetAllAddressesAsync();
+        Task<List<GetAllAddressesDto>> GetAllAddressesAsync();
 
         Task DeleteAddressAsync(Guid id);
     }

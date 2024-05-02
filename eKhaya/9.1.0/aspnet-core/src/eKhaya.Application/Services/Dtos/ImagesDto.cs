@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using eKhaya.Domain.ENums;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace eKhaya.Services.Dtos
         public Guid OwnerID { get; set; }
         
         public IFormFile File { get; set; }
+
+        public ImageType imageType { get; set; }
     }
 }

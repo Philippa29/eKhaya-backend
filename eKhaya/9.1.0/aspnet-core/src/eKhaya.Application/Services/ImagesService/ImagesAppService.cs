@@ -2,6 +2,7 @@
 using Abp.Domain.Repositories;
 using Abp.UI;
 using AutoMapper;
+using eKhaya.Domain.ENums;
 using eKhaya.Domain.Images;
 using eKhaya.Domain.Properties;
 using eKhaya.Domain.Units;
@@ -42,7 +43,7 @@ namespace eKhaya.Services.ImagesService
         }
         [HttpPost ]
         [Consumes("multipart/form-data")]
-        public async Task<Image> CreateImage([FromForm] ImagesDto input)
+        public async Task<Image?> CreateImage([FromForm] ImagesDto input)
         {
             var image = new Image
             {
@@ -51,35 +52,41 @@ namespace eKhaya.Services.ImagesService
                 ImageType = input.File.ContentType
             };
 
-            // Check if the image is from a unit or property then create a unique name for each image
-            // Count how many images there are already and use it as a unique identifier
             if (input.OwnerID != null)
             {
                 string imagePath;
                 int totalCount;
 
-                var property = await _propertyRepository.GetAsync(input.OwnerID);
-                if (property != null)
+                switch (input.imageType)
                 {
-                    // Get the count of images for the property
-                    totalCount = await _imagesRepository.CountAsync();
-
-                    imagePath = $"property_{totalCount + 1}_{image.ImageName}";
-                }
-                else
-                {
-                    var unit = await _unitRepository.GetAsync(input.OwnerID);
-                    if (unit != null)
-                    {
-                        // Get the count of images for the unit
-                        totalCount = await _imagesRepository.CountAsync();
-
-                        imagePath = $"{unit.UnitNumber}_{totalCount + 1}_{image.ImageName}";
-                    }
-                    else
-                    {
-                        throw new Exception("Owner not found");
-                    }
+                    case ImageType.Property:
+                        var property = await _propertyRepository.GetAsync(input.OwnerID);
+                        if (property != null)
+                        {
+                            // Get the count of images for the property
+                            totalCount = await _imagesRepository.CountAsync();
+                            imagePath = $"property_{totalCount + 1}_{image.ImageName}";
+                        }
+                        else
+                        {
+                            throw new Exception("Property not found");
+                        }
+                        break;
+                    case ImageType.Unit:
+                        var unit = await _unitRepository.GetAsync(input.OwnerID);
+                        if (unit != null)
+                        {
+                            // Get the count of images for the unit
+                            totalCount = await _imagesRepository.CountAsync();
+                            imagePath = $"{unit.UnitNumber}_{totalCount + 1}_{image.ImageName}";
+                        }
+                        else
+                        {
+                            throw new Exception("Unit not found");
+                        }
+                        break;
+                    default:
+                        throw new Exception("Invalid image type");
                 }
 
                 // Construct the full image path
@@ -101,6 +108,9 @@ namespace eKhaya.Services.ImagesService
                 throw new Exception("OwnerID cannot be null");
             }
         }
+
+
+
 
 
 
@@ -130,7 +140,7 @@ namespace eKhaya.Services.ImagesService
                     var unit = await _unitRepository.FirstOrDefaultAsync(x => x.Id == id);
                     if (unit != null)
                     {
-                        imagePath = $"{BASE_IMAGE_PATH}/{unit.UnitNumber}_{image.ImageName}";
+                        imagePath = $"{BASE_IMAGE_PATH}/{image.ImageName}";
                     }
                     else
                     {
