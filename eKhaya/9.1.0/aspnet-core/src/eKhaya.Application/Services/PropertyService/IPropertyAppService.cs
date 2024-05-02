@@ -14,7 +14,9 @@ namespace eKhaya.Services.PropertyService
     {
         Task <PropertyDto> CreatePropertyAsync(PropertyDto propertyDto); 
 
-        Task<UpdatePropertyDto> UpdatePropertyAsync(UpdatePropertyDto input);
+
+        Task<PropertyDto> UpdatePropertyAsync(UpdatePropertyDto input);
+
 
         Task<PropertyDto> GetPropertyAsync(Guid id);
 
