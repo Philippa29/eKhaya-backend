@@ -113,9 +113,6 @@ namespace eKhaya.Services.ImagesService
 
 
 
-
-
-
         public async Task<List<FileDto>> GetImagesForOwner(Guid id)
         {
             var images = await _imagesRepository.GetAllListAsync(x => x.OwnerID == id);
