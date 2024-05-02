@@ -42,7 +42,6 @@ namespace eKhaya.Services.DocumentAppService
             var document = _mapper.Map<Document>(input);
             document.FileType = input.File.ContentType;
 
-
             var application = await _applicationRepository.GetAsync(input.OwnerID);
 
             if (application == null)

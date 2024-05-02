@@ -25,7 +25,5 @@ namespace eKhaya.Services.Dtos
 
         public DocumentType DocumentType { get; set; }
 
-        
-
     }
 }
