@@ -60,11 +60,17 @@ namespace eKhaya.Services.ImagesService
                 switch (input.ImageType)
                 {
                     case ImageType.Property:
+                        // Check if property exists
                         var property = await _propertyRepository.GetAsync(input.OwnerID);
                         if (property != null)
                         {
                             // Get the count of images for the property
-                            totalCount = await _imagesRepository.CountAsync();
+                            totalCount = await _imagesRepository.CountAsync(img => img.OwnerID == input.OwnerID && img.ImageType == ImageType.Property);
+                            if (totalCount >= 3)
+                            {
+                                throw new Exception("Cannot add more than 3 images for a property");
+                            }
+                            // Construct image path
                             imagePath = $"property_{totalCount + 1}_{image.ImageName}";
                         }
                         else
@@ -72,12 +78,26 @@ namespace eKhaya.Services.ImagesService
                             throw new Exception("Property not found");
                         }
                         break;
-                    case ImageType.Unit:
+                    case ImageType.Unit_Bachelor:
+                    case ImageType.Unit_1Bedroom:
+                    case ImageType.Unit_2Bedroom:
+                        // Check if unit exists
+                        var unit = await _unitRepository.GetAsync(input.OwnerID);
+                        if (unit != null)
+                        {
                             // Get the count of images for the unit
-                            totalCount = await _imagesRepository.CountAsync();
-                            imagePath = $"unit_{totalCount + 1}_{image.ImageName}";
-                        
-                        
+                            totalCount = await _imagesRepository.CountAsync(img => img.OwnerID == input.OwnerID && img.ImageType == input.ImageType);
+                            if (totalCount >= 3)
+                            {
+                                throw new Exception($"Cannot add more than 3 images for a {input.ImageType.ToString().Split('_')[1]} unit");
+                            }
+                            // Construct image path
+                            imagePath = $"unit_{input.ImageType.ToString().ToLower()}_{totalCount + 1}_{image.ImageName}";
+                        }
+                        else
+                        {
+                            throw new Exception("Unit not found");
+                        }
                         break;
                     default:
                         throw new Exception("Invalid image type");
@@ -102,6 +122,7 @@ namespace eKhaya.Services.ImagesService
                 throw new Exception("OwnerID cannot be null");
             }
         }
+
 
 
 
