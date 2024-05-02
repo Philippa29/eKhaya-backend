@@ -13,6 +13,7 @@ namespace eKhaya.Services.ApplicationsService
     {
         public ApplicationMappingProfile()
         {
+
             CreateMap<Application, ApplicationsDto>()
                 .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? src.Applicant.Id : (Guid?)null))
                 .ForMember(dest => dest.Unit, opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Id : (Guid?)null));
@@ -22,6 +23,7 @@ namespace eKhaya.Services.ApplicationsService
             CreateMap<CreateApplicationDto, Application>()
                 .ForMember(dest => dest.Applicant, opt => opt.Ignore())
                 .ForMember(dest => dest.Unit, opt => opt.Ignore());
+
         }
     }
 }

@@ -12,6 +12,7 @@ namespace eKhaya.Services.DocumentAppService
 {
     public interface IDocumentAppService : IApplicationService
     {
+
         Task<Document> CreateDocAsync( DocumentDto input); 
 
         Task<List<AllDocumentsDto>> GetAllDocumentsAsync();
@@ -21,6 +22,7 @@ namespace eKhaya.Services.DocumentAppService
         Task<List<DocumentDto>> GetDocumentsAsync();
         Task<IActionResult> UpdateDocumentAsync(Guid id , DocumentDto input);
         Task DeleteDocumentAsync(Guid id);
+
     }
 
 }

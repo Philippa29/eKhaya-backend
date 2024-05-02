@@ -19,6 +19,8 @@ using eKhaya.Domain.PropertyAmenities;
 using eKhaya.Domain.AgentsProperty;
 using eKhaya.Domain.UnitsAmenities;
 
+
+
 namespace eKhaya.EntityFrameworkCore
 {
     public class eKhayaDbContext : AbpZeroDbContext<Tenant, Role, User, eKhayaDbContext>

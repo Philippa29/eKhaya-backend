@@ -1,7 +1,9 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using AutoMapper;
+
 using eKhaya.Domain.Applications;
+
 using eKhaya.Domain.Documents;
 using eKhaya.Domain.ENums;
 using eKhaya.Services.Dtos;
@@ -18,6 +20,7 @@ namespace eKhaya.Services.DocumentAppService
 {
     public class DocumentAppService : ApplicationService, IDocumentAppService
     {
+
         const string BASE_FILE_PATH = "App_Data/Documents";
 
         private readonly IRepository<Document, Guid> _documentRepository;
@@ -142,6 +145,7 @@ namespace eKhaya.Services.DocumentAppService
                 await stream.CopyToAsync(fs);
             }
         }
+
     }
 
 }

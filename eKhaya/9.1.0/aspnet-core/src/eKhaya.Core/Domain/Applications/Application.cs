@@ -44,5 +44,6 @@ namespace eKhaya.Domain.Applications
         public virtual string TermsandConditions { get; set; }
 
         public virtual ApplicationType ApplicationType { get; set; }
+
     }
 }

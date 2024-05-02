@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+
 using Abp.Domain.Repositories;
 using Abp.UI;
 using AutoMapper;
@@ -21,10 +22,13 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
+
+
 namespace eKhaya.Services.ImagesService
 {
     public class ImagesAppService : ApplicationService, IImagesAppService
     {
+
 
         const string BASE_IMAGE_PATH = "App_Data/Images";
 
@@ -172,6 +176,7 @@ namespace eKhaya.Services.ImagesService
                 await stream.CopyToAsync(fs);
             }
         }
+
 
 
     }
