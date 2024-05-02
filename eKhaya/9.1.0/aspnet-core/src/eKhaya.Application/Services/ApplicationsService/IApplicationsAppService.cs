@@ -10,7 +10,9 @@ namespace eKhaya.Services.ApplicationsService
 {
      public interface IApplicationAppService : IApplicationService
     {
-        public Task<ApplicationsDto> CreateApplicationAsync(ApplicationsDto input);
+
+        public Task<ApplicationsDto> CreateApplicationAsync(CreateApplicationDto input);
+
 
         public Task<ApplicationsDto> UpdateApplicationAsync(ApplicationsDto input);
 

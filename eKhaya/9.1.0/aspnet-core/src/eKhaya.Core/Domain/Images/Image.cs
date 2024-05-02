@@ -13,7 +13,7 @@ namespace eKhaya.Domain.Images
     public class Image : Entity<Guid>
     {
 
-            public virtual Property OwnerID { get; set; }  
+            public virtual Guid OwnerID { get; set; }  
             [NotMapped]
             public virtual IFormFile File { get; set; }
 
