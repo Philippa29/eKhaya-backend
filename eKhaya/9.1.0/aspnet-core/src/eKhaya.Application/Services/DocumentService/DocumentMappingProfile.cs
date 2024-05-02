@@ -14,9 +14,9 @@ namespace eKhaya.Services.DocumentAppService
         public DocumentMappingProfile()
         {
             CreateMap<DocumentDto, Document>()
+
                 .ForMember(x=> x.OwnerID, e => e.Ignore())
                 .ForMember(x => x.Id, e => e.Ignore());
-
 
         }
     }
