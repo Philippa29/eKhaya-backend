@@ -12,9 +12,11 @@ namespace eKhaya.Services.Dtos
 {
     public class ApplicationsDto : EntityDto<Guid>
     {
+
         public  Guid Unit { get; set; }
 
         public Guid Applicant { get; set; }
+
 
         public ApplicationStatus ApplicationStatus { get; set; }
 
@@ -41,7 +43,9 @@ namespace eKhaya.Services.Dtos
         public string Declaration { get; set; }
         public string TermsandConditions { get; set; }
 
+
         public ApplicationType ApplicationType { get; set; }
+
 
     }
 }

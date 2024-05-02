@@ -33,6 +33,7 @@ namespace eKhaya.Domain.Applications
 
         public virtual int Salary { get; set; }
 
+
         public virtual int MonthsWorked { get; set; }
 
         public virtual DateTime CreatedDate { get; set; }
@@ -44,5 +45,6 @@ namespace eKhaya.Domain.Applications
         public virtual string TermsandConditions { get; set; }
 
         public virtual ApplicationType ApplicationType { get; set; }
+
     }
 }

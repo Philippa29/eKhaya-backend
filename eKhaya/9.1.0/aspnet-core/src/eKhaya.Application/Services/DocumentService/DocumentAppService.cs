@@ -1,7 +1,9 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using AutoMapper;
+
 using eKhaya.Domain.Applications;
+
 using eKhaya.Domain.Documents;
 using eKhaya.Domain.ENums;
 using eKhaya.Services.Dtos;
@@ -18,6 +20,7 @@ namespace eKhaya.Services.DocumentAppService
 {
     public class DocumentAppService : ApplicationService, IDocumentAppService
     {
+
         const string BASE_FILE_PATH = "App_Data/Documents";
 
         private readonly IRepository<Document, Guid> _documentRepository;
@@ -33,10 +36,12 @@ namespace eKhaya.Services.DocumentAppService
         }
 
         [Route("api/documents")]
+
         public async Task<Document> CreateDocAsync([FromForm] DocumentDto input)
         {
             var document = _mapper.Map<Document>(input);
             document.FileType = input.File.ContentType;
+
 
             var application = await _applicationRepository.GetAsync(input.OwnerID);
 
@@ -62,6 +67,7 @@ namespace eKhaya.Services.DocumentAppService
                 document.DocumentName = filePath; 
                 document.DocumentType = input.DocumentType;
 
+
                 return await _documentRepository.InsertAsync(document);
             }
             else
@@ -70,6 +76,7 @@ namespace eKhaya.Services.DocumentAppService
                 throw new Exception("Only PDF files are allowed.");
             }
         }
+
         private bool IsPdf(string contentType)
         {
             // List of MIME types for PDF files
@@ -116,6 +123,7 @@ namespace eKhaya.Services.DocumentAppService
 
             return response;
         }
+
         public async Task<string> GetDocumentsAsync(Guid id)
         {
             var document = await _documentRepository.GetAsync(id);
@@ -129,7 +137,9 @@ namespace eKhaya.Services.DocumentAppService
         }
 
 
+
         [Route("api/getdocuments")]
+
         public async Task<List<DocumentDto>> GetDocumentsAsync()
         {
             var documents = await _documentRepository
@@ -173,6 +183,7 @@ namespace eKhaya.Services.DocumentAppService
                 await stream.CopyToAsync(fs);
             }
         }
+
     }
 
 }
