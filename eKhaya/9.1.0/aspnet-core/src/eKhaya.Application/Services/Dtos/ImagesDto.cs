@@ -18,6 +18,6 @@ namespace eKhaya.Services.Dtos
         
         public IFormFile File { get; set; }
 
-        public ImageType imageType { get; set; }
+        public ImageType ImageType { get; set; }
     }
 }

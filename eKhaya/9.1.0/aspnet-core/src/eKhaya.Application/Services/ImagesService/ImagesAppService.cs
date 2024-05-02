@@ -49,7 +49,7 @@ namespace eKhaya.Services.ImagesService
             {
                 OwnerID = input.OwnerID,
                 ImageName = input.File.FileName,
-                ImageType = input.File.ContentType
+                ImageType = input.ImageType
             };
 
             if (input.OwnerID != null)
@@ -57,7 +57,7 @@ namespace eKhaya.Services.ImagesService
                 string imagePath;
                 int totalCount;
 
-                switch (input.imageType)
+                switch (input.ImageType)
                 {
                     case ImageType.Property:
                         var property = await _propertyRepository.GetAsync(input.OwnerID);
@@ -73,17 +73,11 @@ namespace eKhaya.Services.ImagesService
                         }
                         break;
                     case ImageType.Unit:
-                        var unit = await _unitRepository.GetAsync(input.OwnerID);
-                        if (unit != null)
-                        {
                             // Get the count of images for the unit
                             totalCount = await _imagesRepository.CountAsync();
-                            imagePath = $"{unit.UnitNumber}_{totalCount + 1}_{image.ImageName}";
-                        }
-                        else
-                        {
-                            throw new Exception("Unit not found");
-                        }
+                            imagePath = $"unit_{totalCount + 1}_{image.ImageName}";
+                        
+                        
                         break;
                     default:
                         throw new Exception("Invalid image type");
@@ -152,7 +146,7 @@ namespace eKhaya.Services.ImagesService
                 {
                     Id = image.Id,
                     FileName = image.ImageName,
-                    FileType = image.ImageType,
+                    ImageType = image.ImageType,
                     OwnerId = image.OwnerID,
                     Base64 = base64String
                 });
@@ -198,7 +192,7 @@ namespace eKhaya.Services.ImagesService
 
             // Update the properties of the existing stored file with the new information
             existingStoredFile.ImageName = input.File.FileName;
-            existingStoredFile.ImageType = input.File.ContentType;
+            existingStoredFile.ImageType = input.ImageType;
             existingStoredFile.OwnerID = input.OwnerID;
             // Update any other relevant properties as needed
 

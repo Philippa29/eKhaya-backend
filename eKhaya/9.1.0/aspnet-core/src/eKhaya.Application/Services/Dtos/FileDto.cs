@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eKhaya.Domain.ENums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace eKhaya.Services.Dtos
 
         public Guid OwnerId { get; set; }
         public string FileName { get; set; }
-        public string FileType { get; set; }
+        public ImageType ImageType { get; set; }
         public string Base64 { get; set; }
     }
 }
