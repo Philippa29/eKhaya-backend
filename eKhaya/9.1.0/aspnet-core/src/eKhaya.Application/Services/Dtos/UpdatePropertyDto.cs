@@ -13,8 +13,10 @@ namespace eKhaya.Services.Dtos
         public decimal Size { get; set; }
         public Guid PropertyManagerId { get; set; }
 
+
         public string PropertyName { get; set; }
 
         public string Description { get; set; }
+
     }
 }
