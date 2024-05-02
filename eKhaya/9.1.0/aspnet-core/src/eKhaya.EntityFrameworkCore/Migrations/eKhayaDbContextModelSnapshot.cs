@@ -1609,7 +1609,6 @@ namespace eKhaya.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1848,7 +1847,6 @@ namespace eKhaya.Migrations
 
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
-
 
 
                     b.Property<Guid>("OwnerID")
@@ -2879,9 +2877,11 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("AmenityId");
 
+
                     b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
+
 
                     b.Navigation("Amenity");
 

@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 namespace eKhaya.Services.ApplicationsService
 {
 
-
     public class ApplicationsAppService : ApplicationService , IApplicationAppService
 
     {
@@ -108,6 +107,7 @@ namespace eKhaya.Services.ApplicationsService
 
             return ObjectMapper.Map<ApplicationsDto>(application);
         }
+
 
     }
 }

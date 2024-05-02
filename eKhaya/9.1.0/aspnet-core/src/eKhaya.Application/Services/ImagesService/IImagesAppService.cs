@@ -23,7 +23,6 @@ namespace eKhaya.Services.ImagesService
         
 
         Task<List<FileDto>> GetImagesForOwner(Guid id);
-        
 
     }
 }

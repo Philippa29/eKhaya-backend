@@ -38,10 +38,11 @@ namespace eKhaya.Services.DocumentAppService
         [Route("api/documents")]
 
         public async Task<Document> CreateDocAsync([FromForm] DocumentDto input)
-
         {
             var document = _mapper.Map<Document>(input);
             document.FileType = input.File.ContentType;
+
+
             var application = await _applicationRepository.GetAsync(input.OwnerID);
 
             if (application == null)
@@ -91,7 +92,6 @@ namespace eKhaya.Services.DocumentAppService
         }
 
         [Route("api/alldocuments")]
-
 
         public async Task<List<AllDocumentsDto>> GetAllDocumentsAsync(Guid id)
         {
