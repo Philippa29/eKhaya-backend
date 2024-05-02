@@ -22,8 +22,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
-
-
 namespace eKhaya.Services.ImagesService
 {
     public class ImagesAppService : ApplicationService, IImagesAppService
@@ -46,32 +44,73 @@ namespace eKhaya.Services.ImagesService
         }
         [HttpPost ]
         [Consumes("multipart/form-data")]
-        public async Task<Image> CreateImage([FromForm]ImagesDto input)
+
+        public async Task<Image> CreateImage([FromForm] ImagesDto input)
+
         {
             var image = new Image
             {
                 OwnerID = input.OwnerID,
                 ImageName = input.File.FileName,
-                ImageType = input.File.ContentType,
 
-            }; 
-            
+                ImageType = input.File.ContentType
+            };
 
-            var imagePath = $"{BASE_IMAGE_PATH}/{image.ImageName}";
-
-            using (var stream = input.File.OpenReadStream())
+            // Check if the image is from a unit or property then create a unique name for each image
+            // Count how many images there are already and use it as a unique identifier
+            if (input.OwnerID != null)
             {
-                await SaveFile(imagePath, stream);
+                string imagePath;
+                int totalCount;
+
+                var property = await _propertyRepository.GetAsync(input.OwnerID);
+                if (property != null)
+                {
+                    // Get the count of images for the property
+                    totalCount = await _imagesRepository.CountAsync();
+
+                    imagePath = $"property_{totalCount + 1}_{image.ImageName}";
+                }
+                else
+                {
+                    var unit = await _unitRepository.GetAsync(input.OwnerID);
+                    if (unit != null)
+                    {
+                        // Get the count of images for the unit
+                        totalCount = await _imagesRepository.CountAsync();
+
+                        imagePath = $"{unit.UnitNumber}_{totalCount + 1}_{image.ImageName}";
+                    }
+                    else
+                    {
+                        throw new Exception("Owner not found");
+                    }
+                }
+
+                // Construct the full image path
+                var fullImagePath = $"{BASE_IMAGE_PATH}/{imagePath}";
+
+                using (var stream = input.File.OpenReadStream())
+                {
+                    await SaveFile(fullImagePath, stream);
+                }
+
+                // Update the ImageName property with the relative image path
+                image.ImageName = imagePath;
+
+                // Save the image record in the database
+                return await _imagesRepository.InsertAsync(image);
             }
-
-            image.ImageName = input.File.FileName;
-            image.ImageType = input.File.ContentType;
-
-            return await _imagesRepository.InsertAsync(image);
-               
+            else
+            {
+                throw new Exception("OwnerID cannot be null");
+            }
         }
 
-      
+
+
+
+
 
         public async Task<List<FileDto>> GetImagesForOwner(Guid id)
         {
@@ -84,7 +123,28 @@ namespace eKhaya.Services.ImagesService
 
             foreach (var image in images)
             {
-                var imagePath = $"{BASE_IMAGE_PATH}/{image.ImageName}";
+
+                string imagePath;
+
+                // Determine the owner type based on the OwnerID
+                var property = await _propertyRepository.FirstOrDefaultAsync(x => x.Id == id);
+                if (property != null)
+                {
+                    imagePath = $"{BASE_IMAGE_PATH}/{image.ImageName}";
+                }
+                else
+                {
+                    var unit = await _unitRepository.FirstOrDefaultAsync(x => x.Id == id);
+                    if (unit != null)
+                    {
+                        imagePath = $"{BASE_IMAGE_PATH}/{unit.UnitNumber}_{image.ImageName}";
+                    }
+                    else
+                    {
+                        throw new UserFriendlyException("Owner not found");
+                    }
+                }
+
 
                 byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
                 string base64String = Convert.ToBase64String(imageBytes);
@@ -96,12 +156,13 @@ namespace eKhaya.Services.ImagesService
                     FileType = image.ImageType,
                     OwnerId = image.OwnerID,
                     Base64 = base64String
-                    
+
                 });
             }
 
             return response;
         }
+
 
         public async Task DeleteImage (Guid id)
         {

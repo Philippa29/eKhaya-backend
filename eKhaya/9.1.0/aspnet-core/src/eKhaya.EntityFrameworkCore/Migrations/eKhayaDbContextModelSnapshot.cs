@@ -1852,10 +1852,11 @@ namespace eKhaya.Migrations
 
 
                     b.Property<Guid>("OwnerID")
-
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id
+                    b.HasKey("Id");
+
+
                     b.ToTable("Images");
                 });
 
@@ -2766,6 +2767,8 @@ namespace eKhaya.Migrations
                         .HasForeignKey("UnitId");
 
 
+                    b.Navigation("Applicant");
+
 
                     b.Navigation("OwnerID");
                 });
@@ -2879,7 +2882,6 @@ namespace eKhaya.Migrations
                     b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
-
 
 
                     b.Navigation("Amenity");
@@ -3020,7 +3022,6 @@ namespace eKhaya.Migrations
 
                     b.Navigation("Tokens");
                 });
-
 
 #pragma warning restore 612, 618
         }
