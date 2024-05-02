@@ -78,8 +78,10 @@ namespace eKhaya.Services.PropertyService
                 Address = getAddress,
                 Size = propertyDto.Size,
                 PropertyManager = propertyManager,
+
                 PropertyName = propertyDto.PropertyName,
                 Description = propertyDto.Description   
+
             };
             await _propertyRepository.InsertAsync(property);
 
@@ -144,13 +146,17 @@ namespace eKhaya.Services.PropertyService
             return ObjectMapper.Map<PropertyDto>(property);
         }
 
+
         public async Task<PropertyDto> UpdatePropertyAsync(UpdatePropertyDto propertyDto)
+
         {
             var property = await _propertyRepository.GetAsync(propertyDto.Id);
             ObjectMapper.Map(propertyDto, property);
             await _propertyRepository.UpdateAsync(property);
 
+
             return ObjectMapper.Map<PropertyDto>(property);
+
         }
 
     }

@@ -18,9 +18,11 @@ namespace eKhaya.Domain.Properties
         public virtual decimal Size { get; set; }
         public virtual PropertyManager PropertyManager { get; set; }
 
+
         public virtual string PropertyName { get; set; }
 
         public virtual string Description { get; set; }
+
     }
 
 }

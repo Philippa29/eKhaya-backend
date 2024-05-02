@@ -18,7 +18,9 @@ namespace eKhaya.Services.PropertyService
 
             CreateMap<PropertyDto, Property>();
 
+
             CreateMap<UpdatePropertyDto, Property>(); 
+
 
 
         }

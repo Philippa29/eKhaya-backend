@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace eKhaya.Services.Dtos
 {
+
     public class ImagesDto 
+
     {
         public Guid OwnerID { get; set; }
         
