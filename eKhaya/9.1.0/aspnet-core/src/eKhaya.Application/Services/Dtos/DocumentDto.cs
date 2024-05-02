@@ -12,16 +12,18 @@ using System.Threading.Tasks;
 namespace eKhaya.Services.Dtos
 {
    
+
     public class DocumentDto 
+
     {
         [AutoMap(typeof(Document))]
 
         public IFormFile File { get; set; }
 
+
         public Guid OwnerID { get; set; }
 
         public DocumentType DocumentType { get; set; }
 
-        
     }
 }
