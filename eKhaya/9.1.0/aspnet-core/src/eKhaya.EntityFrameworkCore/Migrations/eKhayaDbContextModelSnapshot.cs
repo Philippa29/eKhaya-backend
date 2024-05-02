@@ -1609,6 +1609,7 @@ namespace eKhaya.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1646,6 +1647,7 @@ namespace eKhaya.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
 
                     b.Property<Guid?>("AgentId")
                         .HasColumnType("uniqueidentifier");
@@ -1718,6 +1720,7 @@ namespace eKhaya.Migrations
 
                     b.HasKey("Id");
 
+
                     b.ToTable("Amenities");
                 });
 
@@ -1733,8 +1736,10 @@ namespace eKhaya.Migrations
                     b.Property<int>("ApplicationStatus")
                         .HasColumnType("int");
 
+
                     b.Property<int>("ApplicationType")
                         .HasColumnType("int");
+
 
                     b.Property<string>("CompanyAddress")
                         .HasColumnType("nvarchar(max)");
@@ -1845,10 +1850,12 @@ namespace eKhaya.Migrations
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
 
+
                     b.Property<Guid>("OwnerID")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
 
                     b.ToTable("Images");
                 });
@@ -2746,6 +2753,7 @@ namespace eKhaya.Migrations
                     b.Navigation("Agent");
 
                     b.Navigation("Property");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Applications.Application", b =>
@@ -2758,9 +2766,11 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("UnitId");
 
+
                     b.Navigation("Applicant");
 
-                    b.Navigation("Unit");
+
+                    b.Navigation("OwnerID");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Documents.Document", b =>
@@ -2863,6 +2873,7 @@ namespace eKhaya.Migrations
                 });
 
             modelBuilder.Entity("eKhaya.Domain.UnitsAmenities.UnitsAmenities", b =>
+
                 {
                     b.HasOne("eKhaya.Domain.Amenities.Amenity", "Amenity")
                         .WithMany()
@@ -2871,6 +2882,7 @@ namespace eKhaya.Migrations
                     b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
+
 
                     b.Navigation("Amenity");
 
@@ -3010,6 +3022,7 @@ namespace eKhaya.Migrations
 
                     b.Navigation("Tokens");
                 });
+
 #pragma warning restore 612, 618
         }
     }

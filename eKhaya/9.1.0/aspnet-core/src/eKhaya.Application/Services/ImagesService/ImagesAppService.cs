@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+
 using Abp.Domain.Repositories;
 using Abp.UI;
 using AutoMapper;
@@ -26,6 +27,7 @@ namespace eKhaya.Services.ImagesService
     public class ImagesAppService : ApplicationService, IImagesAppService
     {
 
+
         const string BASE_IMAGE_PATH = "App_Data/Images";
 
         private readonly IRepository<Image, Guid> _imagesRepository;
@@ -42,12 +44,15 @@ namespace eKhaya.Services.ImagesService
         }
         [HttpPost ]
         [Consumes("multipart/form-data")]
+
         public async Task<Image> CreateImage([FromForm] ImagesDto input)
+
         {
             var image = new Image
             {
                 OwnerID = input.OwnerID,
                 ImageName = input.File.FileName,
+
                 ImageType = input.File.ContentType
             };
 
@@ -106,6 +111,7 @@ namespace eKhaya.Services.ImagesService
 
 
 
+
         public async Task<List<FileDto>> GetImagesForOwner(Guid id)
         {
             var images = await _imagesRepository.GetAllListAsync(x => x.OwnerID == id);
@@ -117,6 +123,7 @@ namespace eKhaya.Services.ImagesService
 
             foreach (var image in images)
             {
+
                 string imagePath;
 
                 // Determine the owner type based on the OwnerID
@@ -138,6 +145,7 @@ namespace eKhaya.Services.ImagesService
                     }
                 }
 
+
                 byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
                 string base64String = Convert.ToBase64String(imageBytes);
 
@@ -148,6 +156,7 @@ namespace eKhaya.Services.ImagesService
                     FileType = image.ImageType,
                     OwnerId = image.OwnerID,
                     Base64 = base64String
+
                 });
             }
 
@@ -228,6 +237,7 @@ namespace eKhaya.Services.ImagesService
                 await stream.CopyToAsync(fs);
             }
         }
+
 
 
     }
