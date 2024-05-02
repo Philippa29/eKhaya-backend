@@ -49,7 +49,7 @@ namespace eKhaya.Services.ImagesService
             {
                 OwnerID = input.OwnerID,
                 ImageName = input.File.FileName,
-                ImageType = input.File.ContentType
+                ImageType = input.ImageType
             };
 
             if (input.OwnerID != null)
@@ -57,14 +57,20 @@ namespace eKhaya.Services.ImagesService
                 string imagePath;
                 int totalCount;
 
-                switch (input.imageType)
+                switch (input.ImageType)
                 {
                     case ImageType.Property:
+                        // Check if property exists
                         var property = await _propertyRepository.GetAsync(input.OwnerID);
                         if (property != null)
                         {
                             // Get the count of images for the property
-                            totalCount = await _imagesRepository.CountAsync();
+                            totalCount = await _imagesRepository.CountAsync(img => img.OwnerID == input.OwnerID && img.ImageType == ImageType.Property);
+                            if (totalCount >= 3)
+                            {
+                                throw new Exception("Cannot add more than 3 images for a property");
+                            }
+                            // Construct image path
                             imagePath = $"property_{totalCount + 1}_{image.ImageName}";
                         }
                         else
@@ -72,13 +78,21 @@ namespace eKhaya.Services.ImagesService
                             throw new Exception("Property not found");
                         }
                         break;
-                    case ImageType.Unit:
+                    case ImageType.Unit_Bachelor:
+                    case ImageType.Unit_1Bedroom:
+                    case ImageType.Unit_2Bedroom:
+                        // Check if unit exists
                         var unit = await _unitRepository.GetAsync(input.OwnerID);
                         if (unit != null)
                         {
                             // Get the count of images for the unit
-                            totalCount = await _imagesRepository.CountAsync();
-                            imagePath = $"{unit.UnitNumber}_{totalCount + 1}_{image.ImageName}";
+                            totalCount = await _imagesRepository.CountAsync(img => img.OwnerID == input.OwnerID && img.ImageType == input.ImageType);
+                            if (totalCount >= 3)
+                            {
+                                throw new Exception($"Cannot add more than 3 images for a {input.ImageType.ToString().Split('_')[1]} unit");
+                            }
+                            // Construct image path
+                            imagePath = $"unit_{input.ImageType.ToString().ToLower()}_{totalCount + 1}_{image.ImageName}";
                         }
                         else
                         {
@@ -108,6 +122,7 @@ namespace eKhaya.Services.ImagesService
                 throw new Exception("OwnerID cannot be null");
             }
         }
+
 
 
 
@@ -152,7 +167,7 @@ namespace eKhaya.Services.ImagesService
                 {
                     Id = image.Id,
                     FileName = image.ImageName,
-                    FileType = image.ImageType,
+                    ImageType = image.ImageType,
                     OwnerId = image.OwnerID,
                     Base64 = base64String
                 });
@@ -198,7 +213,7 @@ namespace eKhaya.Services.ImagesService
 
             // Update the properties of the existing stored file with the new information
             existingStoredFile.ImageName = input.File.FileName;
-            existingStoredFile.ImageType = input.File.ContentType;
+            existingStoredFile.ImageType = input.ImageType;
             existingStoredFile.OwnerID = input.OwnerID;
             // Update any other relevant properties as needed
 

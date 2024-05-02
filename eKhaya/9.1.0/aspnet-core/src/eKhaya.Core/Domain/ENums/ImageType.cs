@@ -8,7 +8,10 @@ namespace eKhaya.Domain.ENums
 {
     public enum ImageType : int
     {
-        Unit = 1,
-        Property = 2,
+        
+        Property = 1,
+        Unit_Bachelor = 2,
+        Unit_1Bedroom = 3,
+        Unit_2Bedroom = 4,  
     }
 }
