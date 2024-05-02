@@ -108,10 +108,6 @@ namespace eKhaya.Services.ImagesService
         }
 
 
-
-
-
-
         public async Task<List<FileDto>> GetImagesForOwner(Guid id)
         {
             var images = await _imagesRepository.GetAllListAsync(x => x.OwnerID == id);
@@ -144,7 +140,6 @@ namespace eKhaya.Services.ImagesService
                         throw new UserFriendlyException("Owner not found");
                     }
                 }
-
 
                 byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
                 string base64String = Convert.ToBase64String(imageBytes);

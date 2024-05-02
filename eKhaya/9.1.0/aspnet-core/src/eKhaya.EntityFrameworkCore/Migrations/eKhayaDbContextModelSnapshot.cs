@@ -1720,7 +1720,6 @@ namespace eKhaya.Migrations
 
                     b.HasKey("Id");
 
-
                     b.ToTable("Amenities");
                 });
 
@@ -1849,6 +1848,7 @@ namespace eKhaya.Migrations
 
                     b.Property<string>("ImageType")
                         .HasColumnType("nvarchar(max)");
+
 
 
                     b.Property<Guid>("OwnerID")
@@ -2882,7 +2882,6 @@ namespace eKhaya.Migrations
                     b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
-
 
                     b.Navigation("Amenity");
 

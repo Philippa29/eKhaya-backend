@@ -21,7 +21,6 @@ namespace eKhaya.Services.DocumentAppService
     public class DocumentAppService : ApplicationService, IDocumentAppService
     {
 
-
         const string BASE_FILE_PATH = "App_Data/Documents";
 
         private readonly IRepository<Document, Guid> _documentRepository;
@@ -43,8 +42,6 @@ namespace eKhaya.Services.DocumentAppService
         {
             var document = _mapper.Map<Document>(input);
             document.FileType = input.File.ContentType;
-
-
             var application = await _applicationRepository.GetAsync(input.OwnerID);
 
             if (application == null)
@@ -78,7 +75,6 @@ namespace eKhaya.Services.DocumentAppService
                 throw new Exception("Only PDF files are allowed.");
             }
         }
-
 
         private bool IsPdf(string contentType)
         {

@@ -24,7 +24,6 @@ namespace eKhaya.Services.DocumentAppService
         Task<IActionResult> UpdateDocumentAsync(Guid id , DocumentDto input);
         Task DeleteDocumentAsync(Guid id);
 
-
     }
 
 }
