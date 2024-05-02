@@ -15,6 +15,7 @@ namespace eKhaya.Services.AddressesService
         {
             CreateMap<AddressesDto, Addresses>();
             CreateMap<Addresses, AddressesDto>();
+            CreateMap<Addresses, GetAllAddressesDto>();
         }
     }
 }
