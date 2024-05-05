@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eKhaya.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using eKhaya.EntityFrameworkCore;
 namespace eKhaya.Migrations
 {
     [DbContext(typeof(eKhayaDbContext))]
-    partial class eKhayaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240504144446_amenitiesupdate3")]
+    partial class amenitiesupdate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

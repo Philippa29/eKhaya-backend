@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eKhaya.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using eKhaya.EntityFrameworkCore;
 namespace eKhaya.Migrations
 {
     [DbContext(typeof(eKhayaDbContext))]
-    partial class eKhayaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240503194754_amenitiesupdate2")]
+    partial class amenitiesupdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1757,6 +1760,9 @@ namespace eKhaya.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Declaration")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
@@ -1787,20 +1793,15 @@ namespace eKhaya.Migrations
                     b.Property<string>("Occupation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitType")
-                        .HasColumnType("int");
+                    b.Property<string>("TermsandConditions")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicantId");
-
-                    b.HasIndex("PropertyId");
 
                     b.ToTable("Applications");
                 });
@@ -2760,13 +2761,7 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("ApplicantId");
 
-                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId");
-
                     b.Navigation("Applicant");
-
-                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Documents.Document", b =>

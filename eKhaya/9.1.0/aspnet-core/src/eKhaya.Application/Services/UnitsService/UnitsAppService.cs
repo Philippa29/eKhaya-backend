@@ -54,20 +54,6 @@ namespace eKhaya.Services.UnitsService
             //save changes 
 
             await CurrentUnitOfWork.SaveChangesAsync();
-
-            foreach (var amenityId in input.AmenityIds)
-            {
-                var amenity = await _amenityRepository.GetAsync(amenityId) ?? throw new Exception("Property not found");
-                var unitsAmenities = new UnitsAmenities
-                {
-                    Unit = createdUnit,
-                    Amenity = amenity,
-
-                };
-
-                await _unitsAmenitiesRepository.InsertAsync(unitsAmenities);
-            }
-
             return ObjectMapper.Map<UnitsDto>(createdUnit);
         }
 

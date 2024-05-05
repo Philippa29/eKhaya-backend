@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using eKhaya.Domain.Documents;
 using eKhaya.Domain.ENums;
+using eKhaya.Domain.Properties;
 using eKhaya.Domain.Units;
 using eKhaya.Domain.Users;
 using JetBrains.Annotations;
@@ -14,9 +15,13 @@ namespace eKhaya.Domain.Applications
 {
     public class Application : FullAuditedEntity<Guid>
     {
-        public virtual Unit Unit { get; set; }
+        
 
         public virtual Applicant Applicant { get; set; }
+
+        public virtual Property Property { get; set; }
+
+        public virtual UnitType UnitType { get; set; }
 
         public virtual ApplicationStatus ApplicationStatus { get; set; }
 
@@ -41,8 +46,6 @@ namespace eKhaya.Domain.Applications
         public virtual bool Insolvent { get; set; }
 
         public virtual bool Evicited { get; set; }
-        public virtual string Declaration { get; set; }
-        public virtual string TermsandConditions { get; set; }
 
         public virtual ApplicationType ApplicationType { get; set; }
 

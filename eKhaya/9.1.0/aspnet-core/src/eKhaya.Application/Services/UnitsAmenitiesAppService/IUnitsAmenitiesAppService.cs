@@ -10,7 +10,7 @@ namespace eKhaya.Services.UnitsAmenitiesAppService
 {
     public interface IUnitsAmenitiesAppService : IApplicationService 
     {
-        public Task<UnitsAmenitiesDto> CreateUnitsAmenitiesAsync(UnitsAmenitiesDto input);
+        public Task<List<UnitsAmenitiesDto>> CreateUnitsAmenitiesAsync(UnitsAmenitiesDto input);
 
         public Task<UnitsAmenitiesDto> UpdateUnitsAmenitiesAsync(UnitsAmenitiesDto input);
 
@@ -19,5 +19,7 @@ namespace eKhaya.Services.UnitsAmenitiesAppService
         public Task<List<UnitsAmenitiesDto>> GetAllUnitsAmenitiesAsync();
 
         public Task DeleteUnitsAmenitiesAsync(Guid id);
+
+        public Task<List<ViewUnitsPerPropertyDto>> GetUnitDetailsForProperty(Guid propertyId); 
     }
 }

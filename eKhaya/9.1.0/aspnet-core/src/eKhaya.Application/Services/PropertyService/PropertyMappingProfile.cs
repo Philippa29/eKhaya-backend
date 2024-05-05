@@ -13,8 +13,8 @@ namespace eKhaya.Services.PropertyService
     {
         public PropertyMappingProfile()
         {
-            CreateMap<Property, PropertyDto>()
-                .ForMember(x => x.PropertyManagerId , y => y.MapFrom(src => src.Id));
+            CreateMap<Property, PropertyDto>(); 
+                
 
             CreateMap<PropertyDto, Property>();
 

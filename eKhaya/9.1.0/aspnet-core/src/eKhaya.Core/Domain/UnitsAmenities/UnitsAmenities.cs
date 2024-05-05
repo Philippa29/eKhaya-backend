@@ -1,5 +1,7 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using eKhaya.Domain.Amenities;
+using eKhaya.Domain.ENums;
+using eKhaya.Domain.Properties;
 using eKhaya.Domain.Units;
 using System;
 using System.Collections.Generic;
@@ -11,8 +13,10 @@ namespace eKhaya.Domain.UnitsAmenities
 {
     public class UnitsAmenities : FullAuditedEntity<Guid>
     {
-        
-        public Unit Unit { get; set; }
+
+        public Property Property { get; set; }
+
+        public UnitType UnitType { get; set; } 
         public Amenity Amenity { get; set; }
     }
 }
