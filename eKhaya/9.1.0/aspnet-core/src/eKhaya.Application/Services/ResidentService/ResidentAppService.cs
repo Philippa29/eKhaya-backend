@@ -23,13 +23,15 @@ namespace eKhaya.Services.ResidentService
     {
         private readonly IRepository<Resident, Guid> _residentrepository;
         private readonly UserManager _userManager;
-        private readonly RoleManager _roleManager; 
+        private readonly RoleManager _roleManager;
+        private readonly IRepository<Applicant, Guid> _applicantRepository; 
 
-        public ResidentAppService(IRepository<Resident, Guid> residentrepository, UserManager userManager, RoleManager roleManager)
+        public ResidentAppService(IRepository<Resident, Guid> residentrepository, UserManager userManager, RoleManager roleManager, IRepository<Applicant, Guid> applicantRepository)
         {
             _residentrepository = residentrepository;
             _userManager = userManager;
             _roleManager = roleManager;
+            _applicantRepository = applicantRepository;
         }
 
         public async Task<ResidentDto> CreateResidentAsync(CreateResidentDto input)
@@ -97,6 +99,38 @@ namespace eKhaya.Services.ResidentService
             var roleNamesToAdd = roles.Select(r => r.Name);
             await _userManager.AddToRolesAsync(user, roleNamesToAdd);
         }
+
+
+        public async Task MakeaTenant(Guid userId)
+        {
+            // Retrieve the applicant by ID
+            var applicant = await _applicantRepository
+                .GetAllIncluding(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == userId);
+            if (applicant == null)
+            {
+                throw new Exception("Applicant not found");
+            }
+
+            // Retrieve the user associated with the applicant
+            var user = await _userManager.FindByIdAsync(applicant.User.Id.ToString());
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            // Check if the user has the "Applicants" role
+            var isInApplicantsRole = await _userManager.IsInRoleAsync(user, "Applicants");
+            if (!isInApplicantsRole)
+            {
+                throw new Exception("User is not in the Applicants role");
+            }
+
+            // Remove the "Applicants" role and add the "Residents" role
+            await _userManager.RemoveFromRoleAsync(user, "Applicants");
+            await _userManager.AddToRoleAsync(user, "Residents");
+        }
+
 
     }
 }

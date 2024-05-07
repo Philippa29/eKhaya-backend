@@ -11,5 +11,6 @@ namespace eKhaya.Domain.ENums
         ID = 1,
         Payslip = 2,
         BankStatement = 3,
+        
     }
 }

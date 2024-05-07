@@ -23,6 +23,6 @@ namespace eKhaya.Services.Dtos
 
         public Unit UnitID { get; set; }
 
-        public Worker Worker { get; set; }
+     
     }
 }

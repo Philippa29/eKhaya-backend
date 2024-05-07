@@ -10,7 +10,7 @@ namespace eKhaya.Services.UnitsService
 {
     public interface IUnitsAppService : IApplicationService
     {
-        Task<UnitsDto> CreateUnitsAsync(UnitsDto input);
+        Task<List<UnitsDto>> CreateUnitsAsync(CreateUnitsDto input);
 
         Task<UpdateUnitsDto> UpdateUnitsAsync(UpdateUnitsDto input);
 
@@ -19,5 +19,9 @@ namespace eKhaya.Services.UnitsService
         Task<List<UnitsDto>> GetAllUnitsAsync();
 
         Task DeleteUnitsAsync(Guid id);
+
+        Task<List<UnitsDto>> GetAllAvailableUnitsByProperty(Guid propertyId);
+
+        Task<List<UnitsDto>> GetAllAvailableUnitsForAgent(); 
     }
 }

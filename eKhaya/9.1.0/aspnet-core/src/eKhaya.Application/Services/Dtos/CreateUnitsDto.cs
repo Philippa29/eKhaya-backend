@@ -1,5 +1,7 @@
-﻿using Abp.Application.Services.Dto;
+﻿using Abp.Domain.Entities;
 using eKhaya.Domain.ENums;
+using eKhaya.Domain.Properties;
+using eKhaya.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace eKhaya.Services.Dtos
 {
-    public class UnitsDto : EntityDto<Guid>
+    public class CreateUnitsDto 
     {
-        public int Size { get; set; }
+        public  int Size { get; set; }
 
-        public UnitType Type { get; set; }
+        public  UnitType Type { get; set; }
 
         public Guid AgentID { get; set; }
 
@@ -25,5 +27,11 @@ namespace eKhaya.Services.Dtos
         public Guid PropertyID { get; set; }
 
         public List<Guid> AmenityIds { get; set; }
+
+        public int RangeUpper { get; set; }
+
+        public int RangeLower { get; set; }
+
+        public int Quantity { get; set; }
     }
-    }
+}

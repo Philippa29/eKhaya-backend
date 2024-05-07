@@ -19,6 +19,11 @@ namespace eKhaya.Services.ApplicationsService
                 .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? src.Applicant.Id : (Guid?)null)) 
                 .ForMember(dest => dest.Property , opt => opt.MapFrom(src => src.Property != null ? src.Property.Id : (Guid?)null));
 
+            CreateMap<Application, GetApplicationsDto>()
+                .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? src.Applicant.Id : (Guid?)null))
+                .ForMember(dest => dest.Property, opt => opt.MapFrom(src => src.Property != null ? src.Property.Id : (Guid?)null));
+                
+
             CreateMap<ApplicationsDto, Application>()
             .ForMember(dest => dest.Property, opt => opt.MapFrom(src => src.Property != null ? src.Property : (Guid?)null))
              .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? new Applicant { Id = src.Applicant } : (Applicant)null));
