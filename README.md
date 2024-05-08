@@ -75,9 +75,6 @@ Brief project description goes here.
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [Additional Notes](#additional-notes)
 
 ## Setup Instructions
 
