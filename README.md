@@ -93,4 +93,7 @@ Before you begin, ensure you have the following installed on your local machine:
    git clone <repository-url>
 2. Navigate to the project directory. : cd <project-directory>
 
+(https://github.com/Philippa29/eKhaya-backend/files/15247328/UML.class.pdf)
+[ERD.pdf](https://github.com/Philippa29/eKhaya-backend/files/15247327/ERD.pdf)
+9/eKhaya-backend/files/15247326/UML.class.pdf)
 
