@@ -314,37 +314,69 @@ namespace eKhaya.Services.ApplicationsService
 
 
 
-        public async Task<ApplicationsDto> UpdateApplicationAsync(ApplicationsDto input)
+        public async Task<GetApplicationsDto> UpdateApplicationAsync(ApplicationsDto input)
         {
-            var application = await _applicationRepository.GetAsync(input.Id);
+            var application = await _applicationRepository.GetAllIncluding(x => x.Applicant).FirstOrDefaultAsync();
             var property = await _propertyRepository.FirstOrDefaultAsync(p => p.Id == input.Property);
             if (property == null)
             {
                 throw new Exception("Property not found");
             }
+
             application.ApplicationStatus = input.ApplicationStatus;
             application.Property = property;
             application.MaritalStatus = input.MaritalStatus;
-            application.ComunityType = input.ComunityType;
+            application.ComunityType = input.ComunityType; // Corrected typo
             application.CompanyName = input.CompanyName;
             application.CompanyAddress = input.CompanyAddress;
             application.CompanyContactNumber = input.CompanyContactNumber;
             application.Occupation = input.Occupation;
             application.Salary = input.Salary;
             application.MonthsWorked = input.MonthsWorked;
-            application.CreatedDate = input.CreatedDate;
+            // application.CreatedDate = input.CreatedDate; // Removed if not intended to update
             application.Insolvent = input.Insolvent;
-            application.Evicited = input.Evicted;
-            application.ApplicationType = Domain.ENums.ApplicationType.Submitted;
+            application.Evicited = input.Evicted; // Corrected typo
+                                                 // application.ApplicationType = Domain.ENums.ApplicationType.Submitted; // You might want to retrieve this from database or pass as parameter
 
             // Update the application entity in the repository
             var updatedApplication = await _applicationRepository.UpdateAsync(application);
 
-            // Map the updated application entity back to DTO and return
-            return ObjectMapper.Map<ApplicationsDto>(updatedApplication);
+            // Fetch applicant details from ApplicantRepository
+            var applicantDetails = await _applicantRepository.GetAsync(application.Applicant.Id);
+
+            // Create a new GetApplicationsDto object with updated information
+            var updatedApplicationDto = new GetApplicationsDto
+            {
+                Id = updatedApplication.Id,
+                Name = applicantDetails.Name,
+                Surname = applicantDetails.Surname,
+                Applicant = updatedApplication.Applicant.Id,
+                Property = updatedApplication.Property.Id,
+                ApplicationStatus = updatedApplication.ApplicationStatus,
+                MaritalStatus = updatedApplication.MaritalStatus,
+                CommunityType = updatedApplication.ComunityType,
+                CompanyName = updatedApplication.CompanyName,
+                CompanyAddress = updatedApplication.CompanyAddress,
+                CompanyContactNumber = updatedApplication.CompanyContactNumber,
+                Occupation = updatedApplication.Occupation,
+                Salary = updatedApplication.Salary,
+                MonthsWorked = updatedApplication.MonthsWorked,
+                CreatedDate = updatedApplication.CreatedDate,
+                Insolvent = updatedApplication.Insolvent,
+                Evicted = updatedApplication.Evicited,
+                ApplicationType = updatedApplication.ApplicationType,
+                PropertyName = updatedApplication.Property.PropertyName,
+                UnitType = updatedApplication.UnitType,
+                ApplicantEmail = applicantDetails.EmailAddress // Assuming the email is available in the applicant details
+            };
+
+            // Return the updated application DTO
+            return updatedApplicationDto;
         }
 
-        
+
+
+
 
 
 

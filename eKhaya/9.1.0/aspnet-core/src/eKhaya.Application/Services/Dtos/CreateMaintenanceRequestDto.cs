@@ -19,9 +19,9 @@ namespace eKhaya.Services.Dtos
 
         public DateTime DateCompleted { get; set; }
 
-        public Resident Tenant { get; set; }
+        public Guid Tenant { get; set; }
 
-        public Unit UnitID { get; set; }
+        public int UnitID { get; set; }
 
      
     }

@@ -23,9 +23,9 @@ namespace eKhaya.Domain.MaintenanceRequests
 
         public virtual Resident Tenant { get; set; }
 
-        public virtual Unit UnitID { get; set; }
+        public virtual int UnitID { get; set; }
 
-        public virtual Worker Worker { get; set; }
+       
 
 
 

@@ -14,7 +14,7 @@ namespace eKhaya.Services.ApplicationsService
         public Task<ApplicationsDto> CreateApplicationAsync(CreateApplicationDto input);
 
 
-        public Task<ApplicationsDto> UpdateApplicationAsync(ApplicationsDto input);
+        public Task<GetApplicationsDto> UpdateApplicationAsync(ApplicationsDto input); 
 
         public Task<ApplicationsDto> GetApplicationAsync(Guid id);
 
