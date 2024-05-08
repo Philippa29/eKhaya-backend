@@ -18,6 +18,7 @@ using eKhaya.Domain.Address;
 using eKhaya.Domain.PropertyAmenities;
 using eKhaya.Domain.AgentsProperty;
 using eKhaya.Domain.UnitsAmenities;
+using eKhaya.Domain.LeaseDocument;
 
 
 namespace eKhaya.EntityFrameworkCore
@@ -58,6 +59,8 @@ namespace eKhaya.EntityFrameworkCore
 
         //storefiles
         public DbSet<Document> Documents { get; set; }
+
+        public DbSet<LeaseDocument> LeaseDocuments { get; set;  }
 
         public DbSet<Image> Images { get; set; }
         //amenities

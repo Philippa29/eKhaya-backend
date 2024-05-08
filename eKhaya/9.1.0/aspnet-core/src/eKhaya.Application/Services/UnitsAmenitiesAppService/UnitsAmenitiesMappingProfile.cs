@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eKhaya.Domain.ENums;
 using eKhaya.Domain.UnitsAmenities;
 using eKhaya.Services.Dtos;
 using System;
@@ -14,12 +15,20 @@ namespace eKhaya.Services.UnitsAmenitiesAppService
         public UnitsAmenitiesMappingProfile()
         {
             CreateMap<UnitsAmenities, UnitsAmenitiesDto>()
-                .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Id : (Guid?)null))
-                .ForMember(dest => dest.AmenityId, opt => opt.MapFrom(src => src.Amenity != null ? src.Amenity.Id : (Guid?)null));
-            CreateMap<Dtos.UnitsAmenitiesDto, UnitsAmenities>()
-                .ForMember(dest => dest.Unit, opt => opt.Ignore())
+                .ForMember(dest => dest.Property, opt => opt.MapFrom(src => src.Property != null ? src.Property.Id : Guid.Empty))
+                .ForMember(dest => dest.UnitType, opt => opt.MapFrom(src => src.UnitType))
+                .ForMember(dest => dest.Amenity, opt => opt.MapFrom(src => src.Amenity != null ? src.Amenity.Id : Guid.Empty));
+
+            CreateMap<UnitsAmenitiesDto, UnitsAmenities>()
+                .ForMember(dest => dest.Property, opt => opt.Ignore())
+                .ForMember(dest => dest.UnitType, opt => opt.MapFrom(src => src.UnitType))
                 .ForMember(dest => dest.Amenity, opt => opt.Ignore());
-            
+
+            CreateMap<UnitsAmenities, ViewUnitsPerPropertyDto>()
+                .ForMember(dest => dest.PropertyId, opt => opt.MapFrom(src => src.Property != null ? src.Property.Id : Guid.Empty))
+                .ForMember(dest => dest.UnitType, opt => opt.MapFrom(src => src.UnitType))
+                .ForMember(dest => dest.Amenities, opt => opt.MapFrom(src => new List<Guid> { src.Amenity != null ? src.Amenity.Id : Guid.Empty })); 
+                
         }
     }
 }

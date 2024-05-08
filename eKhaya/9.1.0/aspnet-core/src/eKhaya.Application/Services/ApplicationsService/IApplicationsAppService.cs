@@ -14,13 +14,18 @@ namespace eKhaya.Services.ApplicationsService
         public Task<ApplicationsDto> CreateApplicationAsync(CreateApplicationDto input);
 
 
-        public Task<ApplicationsDto> UpdateApplicationAsync(ApplicationsDto input);
+        public Task<GetApplicationsDto> UpdateApplicationAsync(ApplicationsDto input); 
 
         public Task<ApplicationsDto> GetApplicationAsync(Guid id);
 
-        public Task<List<ApplicationsDto>> GetAllApplicationsAsync();
+        public Task<List<GetApplicationsDto>> GetAllApplicationsAsync();
 
         public Task DeleteApplicationAsync(Guid id);
+
+        Task<List<GetApplicationsDto>> GetApplicationsForLoggedInPersonAsync(); 
+
+
+
 
     }
 }

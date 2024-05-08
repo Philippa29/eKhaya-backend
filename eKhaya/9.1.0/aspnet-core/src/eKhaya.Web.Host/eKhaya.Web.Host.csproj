@@ -46,5 +46,6 @@
   <ItemGroup>
     <Folder Include="App_Data\Images\" />
     <Folder Include="App_Data\Documents\" />
+    <Folder Include="App_Data\Leases\" />
   </ItemGroup>
 </Project>

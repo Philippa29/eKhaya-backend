@@ -9,6 +9,8 @@ using eKhaya.Domain.PropertyAmenities;
 using eKhaya.Domain.Users;
 using eKhaya.Services.AddressesService;
 using eKhaya.Services.Dtos;
+using eKhaya.Sessions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,8 +30,9 @@ namespace eKhaya.Services.PropertyService
         private readonly IRepository<AgentProperty, Guid> _agentPropertyRepository;
         private readonly IRepository<PropertyManager, Guid> _propertyManagerRepository;
         private readonly IAddressAppService _addresses;
+        private readonly ISessionAppService _session;
 
-        public PropertyAppService(IAddressAppService addresses, IRepository<PropertyManager, Guid> propertyManagerRepository, IRepository<Addresses, Guid> addressesRepository , IRepository<Property, Guid> propertyRepository, IRepository<Agent, Guid> agentRepository, IRepository<Amenity, Guid> amenityRepository, IRepository<PropertyAmenity, Guid> propertyAmenityRepository, IRepository<AgentProperty, Guid> agentPropertyRepository)
+        public PropertyAppService(IAddressAppService addresses, ISessionAppService session , IRepository<PropertyManager, Guid> propertyManagerRepository, IRepository<Addresses, Guid> addressesRepository , IRepository<Property, Guid> propertyRepository, IRepository<Agent, Guid> agentRepository, IRepository<Amenity, Guid> amenityRepository, IRepository<PropertyAmenity, Guid> propertyAmenityRepository, IRepository<AgentProperty, Guid> agentPropertyRepository)
         {
             _propertyRepository = propertyRepository;
             _agentRepository = agentRepository;
@@ -39,6 +42,7 @@ namespace eKhaya.Services.PropertyService
             _addressesRepository = addressesRepository;
             _propertyManagerRepository = propertyManagerRepository;
             _addresses = addresses;
+            _session = session; 
         }
 
         [AbpAuthorize("Pages.PropertyManager")]
@@ -66,7 +70,17 @@ namespace eKhaya.Services.PropertyService
             var getAddress = await _addressesRepository.GetAsync(addresses.Id);
 
             // Retrieve the property manager
-            var propertyManager = await _propertyManagerRepository.GetAsync(propertyDto.PropertyManagerId);
+
+            var loginUser = await _session.GetCurrentLoginInformations();
+
+            if (loginUser.User == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var propertyManager = await _propertyManagerRepository.FirstOrDefaultAsync(a => a.User.UserName == loginUser.User.UserName);
+
+            
             if (propertyManager == null)
             {
                 throw new Exception("Property Manager not found");
@@ -150,6 +164,15 @@ namespace eKhaya.Services.PropertyService
         public async Task<PropertyDto> UpdatePropertyAsync(UpdatePropertyDto propertyDto)
 
         {
+            var loginUser = await _session.GetCurrentLoginInformations();
+
+            if (loginUser.User == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var propertyManager = await _propertyManagerRepository.FirstOrDefaultAsync(a => a.User.UserName == loginUser.User.UserName);
+            propertyDto.PropertyManagerId = propertyManager.Id; 
             var property = await _propertyRepository.GetAsync(propertyDto.Id);
             ObjectMapper.Map(propertyDto, property);
             await _propertyRepository.UpdateAsync(property);

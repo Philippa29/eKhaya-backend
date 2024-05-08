@@ -82,12 +82,13 @@ namespace eKhaya.Services.ImagesService
                     case ImageType.Unit_1Bedroom:
                     case ImageType.Unit_2Bedroom:
                         // Check if unit exists
-                        var unit = await _unitRepository.GetAsync(input.OwnerID);
-                        if (unit != null)
+
+                        var property_unit = await _propertyRepository.GetAsync(input.OwnerID);
+                        if (property_unit != null)
                         {
                             // Get the count of images for the unit
                             totalCount = await _imagesRepository.CountAsync(img => img.OwnerID == input.OwnerID && img.ImageType == input.ImageType);
-                            if (totalCount >= 3)
+                            if (totalCount >= 4)
                             {
                                 throw new Exception($"Cannot add more than 3 images for a {input.ImageType.ToString().Split('_')[1]} unit");
                             }

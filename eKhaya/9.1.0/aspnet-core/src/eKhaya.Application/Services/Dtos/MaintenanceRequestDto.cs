@@ -22,8 +22,8 @@ namespace eKhaya.Services.Dtos
 
         public Guid Tenant { get; set; }
 
-        public Guid UnitID { get; set; }
+        public int UnitID { get; set; }
 
-        public Guid Worker { get; set; }
+       
     }
 }

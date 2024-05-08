@@ -36,7 +36,7 @@ namespace eKhaya.Services.Dtos
 
         public decimal? Longitude { get; set; }
         public decimal Size { get; set; }
-       public Guid PropertyManagerId { get; set; }
+       
 
         public List<Guid> AgentIds { get; set; }
         public List<Guid> AmenityIds { get; set; }

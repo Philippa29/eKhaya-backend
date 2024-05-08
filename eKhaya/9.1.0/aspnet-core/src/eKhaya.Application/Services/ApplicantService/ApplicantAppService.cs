@@ -90,5 +90,8 @@ namespace eKhaya.Services.ApplicantService
             var roleNamesToAdd = roles.Select(r => r.Name);
             await _userManager.AddToRolesAsync(user, roleNamesToAdd);
         }
+
+
+       
     }
 }

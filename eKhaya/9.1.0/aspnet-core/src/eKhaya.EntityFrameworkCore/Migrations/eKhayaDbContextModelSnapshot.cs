@@ -1757,9 +1757,6 @@ namespace eKhaya.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Declaration")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
@@ -1790,20 +1787,20 @@ namespace eKhaya.Migrations
                     b.Property<string>("Occupation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
-                    b.Property<string>("TermsandConditions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UnitId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UnitType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicantId");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("Applications");
                 });
@@ -1851,12 +1848,39 @@ namespace eKhaya.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+
+                });
+
+            modelBuilder.Entity("eKhaya.Domain.LeaseDocument.LeaseDocument", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DocumentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("OwnerIDId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerIDId");
+
+                    b.ToTable("LeaseDocuments");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Leases.Lease", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AgentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationTime")
@@ -1871,12 +1895,6 @@ namespace eKhaya.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("DepositPaid")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1886,13 +1904,7 @@ namespace eKhaya.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("RentAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("TenantId")
+                    b.Property<Guid>("Tenant")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UnitId")
@@ -1900,7 +1912,7 @@ namespace eKhaya.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TenantId");
+                    b.HasIndex("AgentId");
 
                     b.HasIndex("UnitId");
 
@@ -1949,19 +1961,12 @@ namespace eKhaya.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UnitIDId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("WorkerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UnitID")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TenantId");
-
-                    b.HasIndex("UnitIDId");
-
-                    b.HasIndex("WorkerId");
 
                     b.ToTable("MaintenanceRequests");
                 });
@@ -2192,14 +2197,17 @@ namespace eKhaya.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid?>("UnitId")
+                    b.Property<Guid?>("PropertyId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UnitType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AmenityId");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("UnitsAmenities");
                 });
@@ -2760,13 +2768,15 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("ApplicantId");
 
-                    b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
+                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
                         .WithMany()
-                        .HasForeignKey("UnitId");
+
+                        .HasForeignKey("PropertyId");
 
                     b.Navigation("Applicant");
 
-                    b.Navigation("Unit");
+                    b.Navigation("Property");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Documents.Document", b =>
@@ -2778,17 +2788,26 @@ namespace eKhaya.Migrations
                     b.Navigation("OwnerID");
                 });
 
+            modelBuilder.Entity("eKhaya.Domain.LeaseDocument.LeaseDocument", b =>
+                {
+                    b.HasOne("eKhaya.Domain.Leases.Lease", "OwnerID")
+                        .WithMany()
+                        .HasForeignKey("OwnerIDId");
+
+                    b.Navigation("OwnerID");
+                });
+
             modelBuilder.Entity("eKhaya.Domain.Leases.Lease", b =>
                 {
-                    b.HasOne("eKhaya.Domain.Users.Resident", "Tenant")
+                    b.HasOne("eKhaya.Domain.Users.Agent", "Agent")
                         .WithMany()
-                        .HasForeignKey("TenantId");
+                        .HasForeignKey("AgentId");
 
                     b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
 
-                    b.Navigation("Tenant");
+                    b.Navigation("Agent");
 
                     b.Navigation("Unit");
                 });
@@ -2799,19 +2818,7 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("TenantId");
 
-                    b.HasOne("eKhaya.Domain.Units.Unit", "UnitID")
-                        .WithMany()
-                        .HasForeignKey("UnitIDId");
-
-                    b.HasOne("eKhaya.Domain.Workers.Worker", "Worker")
-                        .WithMany()
-                        .HasForeignKey("WorkerId");
-
                     b.Navigation("Tenant");
-
-                    b.Navigation("UnitID");
-
-                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Payment.Payment", b =>
@@ -2874,13 +2881,17 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("AmenityId");
 
-                    b.HasOne("eKhaya.Domain.Units.Unit", "Unit")
+
+                    b.HasOne("eKhaya.Domain.Properties.Property", "Property")
+
                         .WithMany()
-                        .HasForeignKey("UnitId");
+                        .HasForeignKey("PropertyId");
 
                     b.Navigation("Amenity");
 
-                    b.Navigation("Unit");
+
+                    b.Navigation("Property");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>

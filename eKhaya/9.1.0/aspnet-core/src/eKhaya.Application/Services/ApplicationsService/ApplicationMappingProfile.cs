@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eKhaya.Domain.Applications;
+using eKhaya.Domain.Users;
 using eKhaya.Services.Dtos;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,22 @@ namespace eKhaya.Services.ApplicationsService
         {
 
             CreateMap<Application, ApplicationsDto>()
+                .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? src.Applicant.Id : (Guid?)null)) 
+                .ForMember(dest => dest.Property , opt => opt.MapFrom(src => src.Property != null ? src.Property.Id : (Guid?)null));
+
+            CreateMap<Application, GetApplicationsDto>()
                 .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? src.Applicant.Id : (Guid?)null))
-                .ForMember(dest => dest.Unit, opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Id : (Guid?)null));
+                .ForMember(dest => dest.Property, opt => opt.MapFrom(src => src.Property != null ? src.Property.Id : (Guid?)null));
+                
+
             CreateMap<ApplicationsDto, Application>()
-                .ForMember(dest => dest.Applicant, opt => opt.Ignore())
-                .ForMember(dest => dest.Unit, opt => opt.Ignore());
+            .ForMember(dest => dest.Property, opt => opt.MapFrom(src => src.Property != null ? src.Property : (Guid?)null))
+             .ForMember(dest => dest.Applicant, opt => opt.MapFrom(src => src.Applicant != null ? new Applicant { Id = src.Applicant } : (Applicant)null));
+
             CreateMap<CreateApplicationDto, Application>()
-                .ForMember(dest => dest.Applicant, opt => opt.Ignore())
-                .ForMember(dest => dest.Unit, opt => opt.Ignore());
+                .ForMember(dest => dest.Applicant, opt => opt.Ignore());
+
+
 
         }
     }

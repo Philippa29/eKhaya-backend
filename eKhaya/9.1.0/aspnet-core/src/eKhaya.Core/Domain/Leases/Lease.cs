@@ -2,24 +2,22 @@
 using System;
 using eKhaya.Domain.Users;
 using eKhaya.Domain.Units;
+using eKhaya.Domain.ENums;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eKhaya.Domain.Leases
 {
     public class Lease : FullAuditedEntity<Guid>
     {
 
-        public virtual DateTime StartDate { get; set; }
-
-        public virtual DateTime EndDate { get; set;}
-
-        public virtual decimal RentAmount { get; set; }
-
-        public virtual bool DepositPaid { get; set; }
-
         public virtual Unit Unit { get; set; }
 
-        public virtual Resident Tenant { get; set; }
+        public virtual Guid Tenant { get; set; }
 
-        
+        public virtual Agent Agent { get; set;  }
+
+
+
     }
 }

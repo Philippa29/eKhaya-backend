@@ -90,7 +90,7 @@ namespace eKhaya.Services.DocumentAppService
             return pdfMimeTypes.Contains(contentType);
         }
 
-        [Route("api/alldocuments")]
+        [Route("api/getalldocuments")]
 
         public async Task<List<AllDocumentsDto>> GetAllDocumentsAsync(Guid id)
         {
