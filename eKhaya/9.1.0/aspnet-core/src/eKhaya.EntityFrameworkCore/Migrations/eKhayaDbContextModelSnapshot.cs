@@ -1848,6 +1848,7 @@ namespace eKhaya.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.LeaseDocument.LeaseDocument", b =>
@@ -1870,6 +1871,7 @@ namespace eKhaya.Migrations
                     b.HasIndex("OwnerIDId");
 
                     b.ToTable("LeaseDocuments");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Leases.Lease", b =>
@@ -2768,11 +2770,13 @@ namespace eKhaya.Migrations
 
                     b.HasOne("eKhaya.Domain.Properties.Property", "Property")
                         .WithMany()
+
                         .HasForeignKey("PropertyId");
 
                     b.Navigation("Applicant");
 
                     b.Navigation("Property");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Documents.Document", b =>
@@ -2877,13 +2881,17 @@ namespace eKhaya.Migrations
                         .WithMany()
                         .HasForeignKey("AmenityId");
 
+
                     b.HasOne("eKhaya.Domain.Properties.Property", "Property")
+
                         .WithMany()
                         .HasForeignKey("PropertyId");
 
                     b.Navigation("Amenity");
 
+
                     b.Navigation("Property");
+
                 });
 
             modelBuilder.Entity("eKhaya.Domain.Users.Agent", b =>

@@ -82,6 +82,7 @@ namespace eKhaya.Services.ImagesService
                     case ImageType.Unit_1Bedroom:
                     case ImageType.Unit_2Bedroom:
                         // Check if unit exists
+
                         var property_unit = await _propertyRepository.GetAsync(input.OwnerID);
                         if (property_unit != null)
                         {
