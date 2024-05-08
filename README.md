@@ -65,3 +65,35 @@ Page load times and transaction processing times should be optimized to provide 
 6. Compliance:
 
 The system should comply with relevant laws and regulations governing property management, such as tenant rights, fair housing laws, and data protection regulations (e.g., GDPR, CCPA).
+
+# Ekhaya Backend
+
+Brief project description goes here.
+
+## Table of Contents
+
+- [Setup Instructions](#setup-instructions)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Additional Notes](#additional-notes)
+
+## Setup Instructions
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your local machine:
+
+- .NET SDK
+- Visual Studio (optional)
+- Docker (optional)
+
+### Installation
+
+1. Clone this repository to your local machine.
+   ```bash
+   git clone <repository-url>
+2. Navigate to the project directory. : cd <project-directory>
+
+
